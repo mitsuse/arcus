@@ -8,12 +8,12 @@ import (
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
-func NewSendCommand() cli.Command {
+func NewNoteCommand() cli.Command {
 	command := cli.Command{
-		Name:      "send",
-		ShortName: "s",
-		Usage:     "send text or files.",
-		Action:    actionSend,
+		Name:      "note",
+		ShortName: "n",
+		Usage:     "Send a note",
+		Action:    actionNote,
 
 		Flags: []cli.Flag{
 			cli.StringFlag{
@@ -27,7 +27,7 @@ func NewSendCommand() cli.Command {
 	return command
 }
 
-func actionSend(ctx *cli.Context) {
+func actionNote(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
 	config, err := loadConfigPath(configPath)
