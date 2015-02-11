@@ -6,6 +6,7 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet"
 	"github.com/mitsuse/bullet/pushbullet"
+	"github.com/mitsuse/bullet/pushbullet/pushes"
 )
 
 func NewNoteCommand() cli.Command {
@@ -20,6 +21,18 @@ func NewNoteCommand() cli.Command {
 				Name:  "config,c",
 				Value: os.Getenv("HOME") + "/.config.bullet",
 				Usage: "The path of your config file",
+			},
+
+			cli.StringFlag{
+				Name:  "title,t",
+				Value: "",
+				Usage: "The title of a note to be sent",
+			},
+
+			cli.StringFlag{
+				Name:  "body,b",
+				Value: "",
+				Usage: "The body of a note to be sent",
 			},
 		},
 	}
@@ -36,10 +49,17 @@ func actionNote(ctx *cli.Context) {
 		return
 	}
 
+	title := ctx.String("title")
+	body := ctx.String("body")
+	note := pushes.NewNote(title, body)
+
 	pb := pushbullet.New(config.Token())
 
-	// TODO: Implement this.
-	_ = pb
+	if err := pb.PostNote(note); err != nil {
+		// TODO: Print an error message easy to understand.
+		printError(err)
+		return
+	}
 }
 
 func loadConfigPath(path string) (*bullet.Config, error) {
