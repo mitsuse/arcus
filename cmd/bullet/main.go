@@ -16,7 +16,7 @@ func initApp() *cli.App {
 
 	app.Name = "bullet"
 	app.Version = "0.0.1"
-	app.Usage = "A command-line tool to push text or files to Pushbullet."
+	app.Usage = "A command-line tool to send text or files to Pushbullet."
 
 	return app
 }
