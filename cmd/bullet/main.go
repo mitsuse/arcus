@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/bullet/cmd/bullet/commands"
 )
 
 func main() {
@@ -17,6 +18,10 @@ func initApp() *cli.App {
 	app.Name = "bullet"
 	app.Version = "0.0.1"
 	app.Usage = "A command-line tool to send text or files to Pushbullet."
+
+	app.Commands = []cli.Command{
+		commands.NewSendCommand(),
+	}
 
 	return app
 }
