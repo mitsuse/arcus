@@ -43,6 +43,7 @@ func (pb *Pushbullet) PostNote(n *pushes.Note) error {
 	}
 
 	// TODO: Process an error response.
+	_ = res
 
 	return nil
 }
