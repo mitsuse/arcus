@@ -5,6 +5,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet"
+	"github.com/mitsuse/bullet/pushbullet"
 )
 
 func NewSendCommand() cli.Command {
@@ -35,8 +36,10 @@ func actionSend(ctx *cli.Context) {
 		return
 	}
 
+	pb := pushbullet.New(auth.Token())
+
 	// TODO: Implement this.
-	_ = auth
+	_ = pb
 }
 
 func loadAuthPath(path string) (*bullet.Auth, error) {
