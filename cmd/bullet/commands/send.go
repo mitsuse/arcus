@@ -17,9 +17,9 @@ func NewSendCommand() cli.Command {
 
 		Flags: []cli.Flag{
 			cli.StringFlag{
-				Name:  "auth,a",
-				Value: os.Getenv("HOME") + "/.auth.bullet",
-				Usage: "The path of your authentication file",
+				Name:  "config,c",
+				Value: os.Getenv("HOME") + "/.config.bullet",
+				Usage: "The path of your config file",
 			},
 		},
 	}
@@ -28,26 +28,26 @@ func NewSendCommand() cli.Command {
 }
 
 func actionSend(ctx *cli.Context) {
-	authPath := ctx.String("auth")
+	configPath := ctx.String("config")
 
-	auth, err := loadAuthPath(authPath)
+	config, err := loadConfigPath(configPath)
 	if err != nil {
 		printError(err)
 		return
 	}
 
-	pb := pushbullet.New(auth.Token())
+	pb := pushbullet.New(config.Token())
 
 	// TODO: Implement this.
 	_ = pb
 }
 
-func loadAuthPath(path string) (*bullet.Auth, error) {
+func loadConfigPath(path string) (*bullet.Config, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	return bullet.LoadAuth(file)
+	return bullet.LoadConfig(file)
 }
