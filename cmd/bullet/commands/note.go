@@ -17,23 +17,9 @@ func NewNoteCommand() cli.Command {
 		Action:    actionNote,
 
 		Flags: []cli.Flag{
-			cli.StringFlag{
-				Name:  "config,c",
-				Value: os.Getenv("HOME") + "/.config.bullet",
-				Usage: "The path of your config file",
-			},
-
-			cli.StringFlag{
-				Name:  "title,t",
-				Value: "",
-				Usage: "The title of a note to be sent",
-			},
-
-			cli.StringFlag{
-				Name:  "body,b",
-				Value: "",
-				Usage: "The body of a note to be sent",
-			},
+			configFlag(),
+			titleFlag("The title of a note to be sent"),
+			bodyFlag("The body of a note to be sent"),
 		},
 	}
 
