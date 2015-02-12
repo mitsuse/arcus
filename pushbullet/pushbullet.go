@@ -28,6 +28,10 @@ func (pb *Pushbullet) PostLink(l *pushes.Link) error {
 	return pb.postPushes(l)
 }
 
+func (pb *Pushbullet) PostAddress(a *pushes.Address) error {
+	return pb.postPushes(a)
+}
+
 func (pb *Pushbullet) postPushes(p pushes.Push) error {
 	buffer := &bytes.Buffer{}
 
