@@ -32,6 +32,10 @@ func (pb *Pushbullet) PostAddress(a *pushes.Address) error {
 	return pb.postPushes(a)
 }
 
+func (pb *Pushbullet) PostCheck(c *pushes.Check) error {
+	return pb.postPushes(c)
+}
+
 func (pb *Pushbullet) postPushes(p pushes.Push) error {
 	buffer := &bytes.Buffer{}
 

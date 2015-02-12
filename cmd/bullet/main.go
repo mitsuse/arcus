@@ -23,6 +23,7 @@ func initApp() *cli.App {
 		commands.NewNoteCommand(),
 		commands.NewLinkCommand(),
 		commands.NewAddressCommand(),
+		commands.NewCheckCommand(),
 	}
 
 	return app
