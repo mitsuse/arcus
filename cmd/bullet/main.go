@@ -22,8 +22,6 @@ func initApp() *cli.App {
 	app.Commands = []cli.Command{
 		commands.NewNoteCommand(),
 		commands.NewLinkCommand(),
-		commands.NewAddressCommand(),
-		commands.NewCheckCommand(),
 	}
 
 	return app
