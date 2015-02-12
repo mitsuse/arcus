@@ -6,12 +6,12 @@ import (
 	"github.com/mitsuse/bullet/pushbullet/pushes"
 )
 
-func NewListCommand() cli.Command {
+func NewCheckCommand() cli.Command {
 	command := cli.Command{
 		Name:      "check",
 		ShortName: "c",
 		Usage:     "Send a checklist",
-		Action:    actionList,
+		Action:    actionCheck,
 
 		Flags: []cli.Flag{
 			configFlag(),
@@ -22,7 +22,7 @@ func NewListCommand() cli.Command {
 	return command
 }
 
-func actionList(ctx *cli.Context) {
+func actionCheck(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
 	config, err := loadConfigPath(configPath)
@@ -32,11 +32,11 @@ func actionList(ctx *cli.Context) {
 	}
 
 	title := ctx.String("title")
-	list := pushes.NewList(title, ctx.Args()...)
+	check := pushes.NewCheck(title, ctx.Args()...)
 
 	pb := pushbullet.New(config.Token())
 
-	if err := pb.PostList(list); err != nil {
+	if err := pb.PostCheck(check); err != nil {
 		// TODO: Print an error message easy to understand.
 		printError(err)
 		return
