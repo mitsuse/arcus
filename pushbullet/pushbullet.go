@@ -24,8 +24,8 @@ func (pb *Pushbullet) PostNote(n *pushes.Note) error {
 	return pb.postPushes(n)
 }
 
-func (pb *Pushbullet) PostLink(n *pushes.Link) error {
-	return pb.postPushes(n)
+func (pb *Pushbullet) PostLink(l *pushes.Link) error {
+	return pb.postPushes(l)
 }
 
 func (pb *Pushbullet) postPushes(p pushes.Push) error {
