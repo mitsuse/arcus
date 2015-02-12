@@ -1,10 +1,7 @@
 package commands
 
 import (
-	"os"
-
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet"
 	"github.com/mitsuse/bullet/pushbullet"
 	"github.com/mitsuse/bullet/pushbullet/pushes"
 )
@@ -46,14 +43,4 @@ func actionNote(ctx *cli.Context) {
 		printError(err)
 		return
 	}
-}
-
-func loadConfigPath(path string) (*bullet.Config, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	return bullet.LoadConfig(file)
 }
