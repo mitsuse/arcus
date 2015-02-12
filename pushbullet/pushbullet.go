@@ -2,6 +2,7 @@ package pushbullet
 
 import (
 	"bytes"
+	"errors"
 	"net/http"
 
 	"github.com/mitsuse/bullet/pushbullet/pushes"
@@ -42,8 +43,10 @@ func (pb *Pushbullet) PostNote(n *pushes.Note) error {
 		return err
 	}
 
-	// TODO: Process an error response.
-	_ = res
+	// TODO: Return an error value with human friendly message.
+	if res.StatusCode != 200 {
+		return errors.New(res.Status)
+	}
 
 	return nil
 }
