@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"os"
-
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet/pushbullet"
 	"github.com/mitsuse/bullet/pushbullet/pushes"
@@ -16,23 +14,9 @@ func NewLinkCommand() cli.Command {
 		Action:    actionLink,
 
 		Flags: []cli.Flag{
-			cli.StringFlag{
-				Name:  "config,c",
-				Value: os.Getenv("HOME") + "/.config.bullet",
-				Usage: "The path of your config file",
-			},
-
-			cli.StringFlag{
-				Name:  "title,t",
-				Value: "",
-				Usage: "The title of a link to be sent",
-			},
-
-			cli.StringFlag{
-				Name:  "body,b",
-				Value: "",
-				Usage: "The message associated with a link to be sent",
-			},
+			configFlag(),
+			titleFlag("The title of a link to be sent"),
+			bodyFlag("The message associated with a link to be sent"),
 
 			cli.StringFlag{
 				Name:  "url,u",
