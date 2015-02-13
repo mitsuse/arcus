@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet"
 )
 
@@ -25,4 +26,14 @@ func loadConfigPath(path string) (*bullet.Config, error) {
 	defer file.Close()
 
 	return bullet.LoadConfig(file)
+}
+
+func configFlag() cli.StringFlag {
+	flag := cli.StringFlag{
+		Name:  "config,c",
+		Value: os.Getenv("HOME") + "/.config.bullet",
+		Usage: "The path of your config file",
+	}
+
+	return flag
 }
