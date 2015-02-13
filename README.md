@@ -1,7 +1,7 @@
 # bullet
 
-[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg)](http://opensource.org/licenses/MIT)
-[![GoDoc](http://godoc.org/github.com/mitsuse/bullet?status.svg)](http://godoc.org/github.com/mitsuse/bullet)
+[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/mitsuse/bullet)
 
 A command-line tool to send text or files to [Pushbullet](https://www.pushbullet.com/).
 
