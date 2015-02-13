@@ -20,10 +20,7 @@ func initApp() *cli.App {
 	app.Usage = commands.APP_DESC
 
 	app.Commands = []cli.Command{
-		commands.NewNoteCommand(),
-		commands.NewLinkCommand(),
-		commands.NewAddressCommand(),
-		commands.NewCheckCommand(),
+		commands.NewSendCommand(),
 	}
 
 	return app
