@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/mitsuse/bullet)
+[![Wercker](http://img.shields.io/wercker/ci/54de05bd3e143292231627b6.svg?style=flat-square)](https://app.wercker.com/project/bykey/ce611c227b5097606b6f3dc589c80ff5)
 
 A command-line tool to send text or files to [Pushbullet](https://www.pushbullet.com/).
 
