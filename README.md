@@ -20,3 +20,12 @@ You can send a link with the message:
 ```bash
 $ bullet send -t <title> -m <message> -l <url>
 ```
+
+## Install
+
+The executable binaries have not been distributed yet.
+Please compile sources into the binary:
+
+```bash
+$ go get github.com/mitsuse/bullet/cmd/bullet
+```
