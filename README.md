@@ -6,3 +6,17 @@
 [![Coverage](https://img.shields.io/coveralls/mitsuse/bullet.svg?style=flat-square)](https://coveralls.io/r/mitsuse/bullet)
 
 A command-line tool to send a message or a file to [Pushbullet](https://www.pushbullet.com/).
+
+## Usage
+
+Send a message to your devices via Pushbullet with the following command:
+
+```bash
+$ bullet send -t <title> -m <message>
+```
+
+You can send a link with the message:
+
+```bash
+$ bullet send -t <title> -m <message> -l <url>
+```
