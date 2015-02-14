@@ -32,19 +32,19 @@ func New(token string) *Pushbullet {
 	return pb
 }
 
-func (pb *Pushbullet) PostNote(n *pushes.Note) error {
+func (pb *Pushbullet) PostPushesNote(n *pushes.Note) error {
 	return pb.postPushes(n)
 }
 
-func (pb *Pushbullet) PostLink(l *pushes.Link) error {
+func (pb *Pushbullet) PostPushesLink(l *pushes.Link) error {
 	return pb.postPushes(l)
 }
 
-func (pb *Pushbullet) PostAddress(a *pushes.Address) error {
+func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
 	return pb.postPushes(a)
 }
 
-func (pb *Pushbullet) PostCheck(c *pushes.Check) error {
+func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
 	return pb.postPushes(c)
 }
 
