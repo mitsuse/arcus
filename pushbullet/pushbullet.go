@@ -1,3 +1,15 @@
+/*
+Package "pushbullet" provides interfaces for Pushbullet HTTP API.
+
+Pushbullet is a web service,
+which makes your devices work better together by allowing you to move things between them easily.
+
+The official url: https://www.pushbullet.com/
+
+Currently, this package supports only "pushes" except file.
+
+See the API documentation for the details: https://docs.pushbullet.com/#http
+*/
 package pushbullet
 
 import (
