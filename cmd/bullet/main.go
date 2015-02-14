@@ -21,6 +21,7 @@ func initApp() *cli.App {
 
 	app.Commands = []cli.Command{
 		commands.NewSendCommand(),
+		commands.NewListCommand(),
 	}
 
 	return app
