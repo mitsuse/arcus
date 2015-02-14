@@ -64,9 +64,9 @@ func actionSend(ctx *cli.Context) {
 func send(pb *pushbullet.Pushbullet, title, message, path string) error {
 	if len(path) == 0 {
 		note := pushes.NewNote(title, message)
-		return pb.PostNote(note)
+		return pb.PostPushesNote(note)
 	} else {
 		link := pushes.NewLink(title, message, path)
-		return pb.PostLink(link)
+		return pb.PostPushesLink(link)
 	}
 }

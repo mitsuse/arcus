@@ -1,3 +1,15 @@
+/*
+Package "pushbullet" provides interfaces for Pushbullet HTTP API.
+
+Pushbullet is a web service,
+which makes your devices work better together by allowing you to move things between them easily.
+
+The official url: https://www.pushbullet.com/
+
+Currently, this package supports only "pushes" except file.
+
+See the API documentation for the details: https://docs.pushbullet.com/#http
+*/
 package pushbullet
 
 import (
@@ -12,6 +24,13 @@ type Pushbullet struct {
 	token string
 }
 
+/*
+Create an instance to call Pushbullet HTTP API.
+This requires the access token.
+Ihe token is found in account settings.
+
+Account settings: https://www.pushbullet.com/account
+*/
 func New(token string) *Pushbullet {
 	pb := &Pushbullet{
 		token: token,
@@ -20,19 +39,23 @@ func New(token string) *Pushbullet {
 	return pb
 }
 
-func (pb *Pushbullet) PostNote(n *pushes.Note) error {
+// Push a note, which consists of "title" and "message" strings.
+func (pb *Pushbullet) PostPushesNote(n *pushes.Note) error {
 	return pb.postPushes(n)
 }
 
-func (pb *Pushbullet) PostLink(l *pushes.Link) error {
+// Push a link, which consists of "title", "message" and "url" strings.
+func (pb *Pushbullet) PostPushesLink(l *pushes.Link) error {
 	return pb.postPushes(l)
 }
 
-func (pb *Pushbullet) PostAddress(a *pushes.Address) error {
+// Push an address, which consists of the place "name" and "address (searchquery)" for map.
+func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
 	return pb.postPushes(a)
 }
 
-func (pb *Pushbullet) PostCheck(c *pushes.Check) error {
+// Push a checklist, which consists of "title" and the list of items.
+func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
 	return pb.postPushes(c)
 }
 
