@@ -28,6 +28,11 @@ func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
 	return pb.postPushes(c)
 }
 
+// Push a file, which consists of "title", "message" and the information of uploaded file.
+func (pb *Pushbullet) PostPushesFile(f *pushes.File) error {
+	return pb.postPushes(f)
+}
+
 func (pb *Pushbullet) postPushes(p pushes.Push) error {
 	buffer := &bytes.Buffer{}
 

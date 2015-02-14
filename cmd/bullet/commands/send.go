@@ -98,9 +98,9 @@ func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 		return err
 	}
 
-	// TODO: Uplaad the file.
+	push := pushes.NewFile(title, message, res.FileName, res.FileType, res.FileUrl)
 
-	return nil
+	return pb.PostPushesFile(push)
 }
 
 func isLink(location string) bool {
