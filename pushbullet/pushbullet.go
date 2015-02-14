@@ -32,18 +32,22 @@ func New(token string) *Pushbullet {
 	return pb
 }
 
+// Push a note, which consists of "title" and "message" strings.
 func (pb *Pushbullet) PostPushesNote(n *pushes.Note) error {
 	return pb.postPushes(n)
 }
 
+// Push a link, which consists of "title", "message" and "url" strings.
 func (pb *Pushbullet) PostPushesLink(l *pushes.Link) error {
 	return pb.postPushes(l)
 }
 
+// Push an address, which consists of the place "name" and "address (searchquery)" for map.
 func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
 	return pb.postPushes(a)
 }
 
+// Push a checklist, which consists of "title" and the list of items.
 func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
 	return pb.postPushes(c)
 }
