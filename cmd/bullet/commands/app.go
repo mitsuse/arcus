@@ -10,7 +10,7 @@ import (
 
 const (
 	APP_NAME    = "bullet"
-	APP_VERSION = "0.0.1"
+	APP_VERSION = "0.0.2"
 	APP_DESC    = "A command-line tool to send text or files to Pushbullet."
 )
 
