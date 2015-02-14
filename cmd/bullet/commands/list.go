@@ -1,7 +1,10 @@
 package commands
 
 import (
+	"fmt"
+
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/bullet/pushbullet"
 )
 
 func NewListCommand() cli.Command {
@@ -20,5 +23,27 @@ func NewListCommand() cli.Command {
 }
 
 func actionList(ctx *cli.Context) {
-	// TODO: Implement this.
+	configPath := ctx.String("config")
+
+	config, err := loadConfigPath(configPath)
+	if err != nil {
+		printError(err)
+		return
+	}
+
+	pb := pushbullet.New(config.Token())
+
+	res, err := pb.GetDevices()
+	if err != nil {
+		printError(err)
+		return
+	}
+
+	for _, device := range res.Devices {
+		if !device.Pushable {
+			continue
+		}
+
+		fmt.Println(device.Nickname)
+	}
 }
