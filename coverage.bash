@@ -7,6 +7,7 @@ package_list=(
     ${base_package}
     ${base_package}/pushbullet
     ${base_package}/pushbullet/pushes
+    ${base_package}/pushbullet/responses
 )
 
 if [ ! -d ${base_path}/coverprofile ]
