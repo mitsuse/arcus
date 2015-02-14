@@ -74,7 +74,7 @@ func createMultipart(upload *UploadReqRes, reader io.Reader) (*bytes.Buffer, err
 	writer := newMultipartWriter(buffer)
 	defer writer.Close()
 
-	writer.WriteField("awsaccesskeyid", dest.AwsAccessKey)
+	writer.WriteField("awsaccesskeyid", dest.AwsAccessKeyId)
 	writer.WriteField("acl", dest.Acl)
 	writer.WriteField("key", dest.Key)
 	writer.WriteField("signature", dest.Signature)

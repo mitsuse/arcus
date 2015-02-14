@@ -9,10 +9,10 @@ type UploadReqRes struct {
 }
 
 type UploadReqDest struct {
-	Acl          string `json:"acl"`
-	AwsAccessKey string `json:"awsaccesskey"`
-	ContentType  string `json:"content-type"`
-	Key          string `json:"key"`
-	Policy       string `json:"policy"`
-	Signature    string `json:"signature"`
+	Acl            string `json:"acl"`
+	AwsAccessKeyId string `json:"awsaccesskeyid"`
+	ContentType    string `json:"content-type"`
+	Key            string `json:"key"`
+	Policy         string `json:"policy"`
+	Signature      string `json:"signature"`
 }
