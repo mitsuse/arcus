@@ -55,24 +55,33 @@ func (pb *Pushbullet) postUploadRequest(name, mime string) (*http.Response, erro
 
 // Upload a file to S3 specified with the response of PostUploadRequest.
 func Upload(upload *UploadReqRes, reader io.Reader) error {
-	buffer, err := createMultipart(upload, reader)
+	req, err := createMultipartReq(upload, reader)
 	if err != nil {
 		return err
 	}
 
-	// TODO: Post the upload request.
-	_ = buffer
+	// TODO: Set the timeout.
+	client := &http.Client{}
+
+	res, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	// TODO: Return an error value with human friendly message.
+	if res.StatusCode < 200 || 300 <= res.StatusCode {
+		return errors.New(res.Status)
+	}
 
 	return nil
 }
 
-func createMultipart(upload *UploadReqRes, reader io.Reader) (*bytes.Buffer, error) {
+func createMultipartReq(upload *UploadReqRes, reader io.Reader) (*http.Request, error) {
 	dest := upload.Data
 
 	buffer := &bytes.Buffer{}
 
 	writer := newMultipartWriter(buffer)
-	defer writer.Close()
 
 	writer.WriteField("awsaccesskeyid", dest.AwsAccessKeyId)
 	writer.WriteField("acl", dest.Acl)
@@ -94,5 +103,16 @@ func createMultipart(upload *UploadReqRes, reader io.Reader) (*bytes.Buffer, err
 		return nil, err
 	}
 
-	return buffer, nil
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", upload.UploadUrl, buffer)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", writer.FormDataContentType())
+
+	return req, nil
 }
