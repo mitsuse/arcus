@@ -24,6 +24,13 @@ type Pushbullet struct {
 	token string
 }
 
+/*
+Create an instance to call Pushbullet HTTP API.
+This requires the access token.
+Ihe token is found in account settings.
+
+Account settings: https://www.pushbullet.com/account
+*/
 func New(token string) *Pushbullet {
 	pb := &Pushbullet{
 		token: token,
