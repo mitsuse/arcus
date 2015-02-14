@@ -2,6 +2,7 @@ package commands
 
 import (
 	"mime"
+	"os"
 	"path"
 	"regexp"
 
@@ -76,6 +77,10 @@ func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 		return pb.PostPushesLink(link)
 	}
 
+	return upload(pb, title, message, location)
+}
+
+func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 	fileName := path.Base(location)
 	fileType := mime.TypeByExtension(path.Ext(fileName))
 
@@ -84,8 +89,16 @@ func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 		return err
 	}
 
+	file, err := os.Open(location)
+	if err != nil {
+		return err
+	}
+
+	if err := pushbullet.Upload(res, file); err != nil {
+		return err
+	}
+
 	// TODO: Uplaad the file.
-	_ = res
 
 	return nil
 }
