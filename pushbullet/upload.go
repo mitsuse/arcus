@@ -57,7 +57,7 @@ func (pb *Pushbullet) postUploadRequest(name, mime string) (*http.Response, erro
 
 // Upload a file to S3 specified with the response of PostUploadRequest.
 func Upload(upload *responses.Upload, reader io.Reader) error {
-	req, err := createMultipartReq(upload, reader)
+	req, err := createUploadReq(upload, reader)
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func Upload(upload *responses.Upload, reader io.Reader) error {
 	return nil
 }
 
-func createMultipartReq(upload *responses.Upload, reader io.Reader) (*http.Request, error) {
+func createUploadReq(upload *responses.Upload, reader io.Reader) (*http.Request, error) {
 	dest := upload.Data
 
 	buffer := &bytes.Buffer{}
