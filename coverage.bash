@@ -6,7 +6,7 @@ base_path=${GOPATH}/src/${base_package}
 package_list=(
     ${base_package}
     ${base_package}/pushbullet
-    ${base_package}/pushbullet/pushes
+    ${base_package}/pushbullet/requests
     ${base_package}/pushbullet/responses
 )
 
