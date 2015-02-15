@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"errors"
 	"mime"
 	"os"
 	"path"
@@ -20,6 +21,12 @@ func NewSendCommand() cli.Command {
 
 		Flags: []cli.Flag{
 			configFlag(),
+
+			cli.StringFlag{
+				Name:  "device,d",
+				Value: "",
+				Usage: "The name of target device",
+			},
 
 			cli.StringFlag{
 				Name:  "title,t",
@@ -58,19 +65,27 @@ func actionSend(ctx *cli.Context) {
 	title := ctx.String("title")
 	message := ctx.String("message")
 	location := ctx.String("location")
+	device := ctx.String("device")
 
-	if err := send(pb, title, message, location); err != nil {
+	deviceId, err := getDeviceId(pb, device)
+	if err != nil {
+		printError(err)
+		return
+	}
+
+	if err := send(pb, deviceId, title, message, location); err != nil {
 		// TODO: Print an error message easy to understand.
 		printError(err)
 		return
 	}
 }
 
-func send(pb *pushbullet.Pushbullet, title, message, location string) error {
+func send(pb *pushbullet.Pushbullet, deviceId, title, message, location string) error {
 	if len(location) == 0 {
 		push := requests.NewNote()
 		push.Title = title
 		push.Body = message
+		push.DeviceIden = deviceId
 
 		_, err := pb.PostPushesNote(push)
 		return err
@@ -81,15 +96,16 @@ func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 		push.Title = title
 		push.Body = message
 		push.Url = location
+		push.DeviceIden = deviceId
 
 		_, err := pb.PostPushesLink(push)
 		return err
 	}
 
-	return upload(pb, title, message, location)
+	return upload(pb, deviceId, title, message, location)
 }
 
-func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
+func upload(pb *pushbullet.Pushbullet, deviceId, title, message, location string) error {
 	fileName := path.Base(location)
 	fileType := mime.TypeByExtension(path.Ext(fileName))
 
@@ -113,12 +129,32 @@ func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 	push.FileName = res.FileName
 	push.FileType = res.FileType
 	push.FileUrl = res.FileUrl
+	push.DeviceIden = deviceId
 
 	if _, err := pb.PostPushesFile(push); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func getDeviceId(pb *pushbullet.Pushbullet, name string) (string, error) {
+	if len(name) > 0 {
+		deviceRes, err := pb.GetDevices()
+		if err != nil {
+			return "", err
+		}
+
+		for _, device := range deviceRes.Devices {
+			if device.Nickname == name {
+				return device.Iden, nil
+			}
+		}
+	} else {
+		return "", nil
+	}
+
+	return "", errors.New("No such device.")
 }
 
 func isLink(location string) bool {
