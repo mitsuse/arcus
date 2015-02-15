@@ -28,6 +28,16 @@ func loadConfigPath(path string) (*bullet.Config, error) {
 	return bullet.LoadConfig(file)
 }
 
+func dumpConfigPath(config *bullet.Config, path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	return bullet.DumpConfig(config, file)
+}
+
 func configFlag() cli.StringFlag {
 	flag := cli.StringFlag{
 		Name:  "config,c",
