@@ -14,7 +14,11 @@ const (
 )
 
 type Push struct {
-	Type string `json:"type"`
+	Type       string `json:"type"`
+	DeviceIden string `json:"device_iden,omitempty"`
+	Email      string `json:"email,omitempty"`
+	ChannelTag string `json:"channel_tag,omitempty"`
+	ClientIden string `json:"client_iden,omitempty"`
 }
 
 type Note struct {
