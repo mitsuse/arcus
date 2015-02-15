@@ -7,6 +7,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet"
+	"github.com/mitsuse/bullet/pushbullet"
 )
 
 func NewAuthCommand() cli.Command {
@@ -42,24 +43,37 @@ func actionAuth(ctx *cli.Context) {
 		config = bullet.NewConfig()
 	}
 
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Split(bufio.ScanLines)
+	for {
+		fmt.Print("access token: ")
+		token, err := readToken()
+		if err != nil {
+			printError(err)
+			return
+		}
+		config.SetToken(token)
 
-	fmt.Print("access token: ")
-	if scanned := scanner.Scan(); !scanned {
-		return
+		pb := pushbullet.New(config.Token())
+		if _, err := pb.GetUsersMe(); err == nil {
+			break
+		}
+		fmt.Println("The access token is invalid.")
 	}
-
-	if err := scanner.Err(); err != nil {
-		printError(err)
-		return
-	}
-	token := scanner.Text()
-
-	config.SetToken(token)
 
 	if err := dumpConfigPath(config, configPath); err != nil {
 		printError(err)
 		return
 	}
+}
+
+func readToken() (string, error) {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Split(bufio.ScanLines)
+	scanner.Scan()
+
+	if err := scanner.Err(); err != nil {
+		printError(err)
+		return "", err
+	}
+
+	return scanner.Text(), nil
 }
