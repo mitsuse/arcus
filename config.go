@@ -9,6 +9,15 @@ type Config struct {
 	*configJson
 }
 
+func NewConfig() *Config {
+
+	c := &Config{
+		configJson: &configJson{},
+	}
+
+	return c
+}
+
 func LoadConfig(reader io.Reader) (*Config, error) {
 	decoder := json.NewDecoder(reader)
 
@@ -24,8 +33,16 @@ func LoadConfig(reader io.Reader) (*Config, error) {
 	return config, nil
 }
 
+func DumpConfig(c *Config, writer io.Writer) error {
+	return json.NewEncoder(writer).Encode(c.configJson)
+}
+
 func (c *Config) Token() string {
 	return c.configJson.Token
+}
+
+func (c *Config) SetToken(token string) {
+	c.configJson.Token = token
 }
 
 type configJson struct {

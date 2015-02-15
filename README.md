@@ -9,6 +9,13 @@ A command-line tool to send a message or a file to [Pushbullet](https://www.push
 
 ## Usage
 
+First, bullet requires the access token to call Pushbullet API.
+Execute the below command and register your access token:
+
+```bash
+$ bullet auth
+```
+
 Send a message to your devices via Pushbullet with the following command:
 
 ```bash
