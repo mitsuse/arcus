@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet"
+	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
@@ -28,39 +28,39 @@ func NewAuthCommand() cli.Command {
 func actionAuth(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
-	var config *bullet.Config
+	var config *app.Config
 	if _, err := os.Stat(configPath); err == nil {
 		fmt.Println("Update the existing config file.")
-		c, err := loadConfigPath(configPath)
+		c, err := app.LoadConfigPath(configPath)
 		if err != nil {
-			printError(err)
+			app.PrintError(err)
 			return
 		}
 
 		config = c
 	} else {
 		fmt.Println("Create a new config file.")
-		config = bullet.NewConfig()
+		config = &app.Config{}
 	}
 
 	for {
 		fmt.Print("access token: ")
 		token, err := readToken()
 		if err != nil {
-			printError(err)
+			app.PrintError(err)
 			return
 		}
-		config.SetToken(token)
+		config.Token = token
 
-		pb := pushbullet.New(config.Token())
+		pb := pushbullet.New(config.Token)
 		if _, err := pb.GetUsersMe(); err == nil {
 			break
 		}
 		fmt.Println("The access token is invalid.")
 	}
 
-	if err := dumpConfigPath(config, configPath); err != nil {
-		printError(err)
+	if err := app.DumpConfigPath(config, configPath); err != nil {
+		app.PrintError(err)
 		return
 	}
 }
@@ -71,7 +71,7 @@ func readToken() (string, error) {
 	scanner.Scan()
 
 	if err := scanner.Err(); err != nil {
-		printError(err)
+		app.PrintError(err)
 		return "", err
 	}
 
