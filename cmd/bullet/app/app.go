@@ -3,8 +3,6 @@ package app
 import (
 	"fmt"
 	"os"
-
-	"github.com/mitsuse/bullet"
 )
 
 const (
@@ -17,22 +15,22 @@ func PrintError(err error) {
 	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
 }
 
-func LoadConfigPath(path string) (*bullet.Config, error) {
+func LoadConfigPath(path string) (*Config, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	return bullet.LoadConfig(file)
+	return LoadConfig(file)
 }
 
-func DumpConfigPath(config *bullet.Config, path string) error {
+func DumpConfigPath(config *Config, path string) error {
 	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	return bullet.DumpConfig(config, file)
+	return DumpConfig(config, file)
 }

@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet"
 	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
@@ -29,7 +28,7 @@ func NewAuthCommand() cli.Command {
 func actionAuth(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
-	var config *bullet.Config
+	var config *app.Config
 	if _, err := os.Stat(configPath); err == nil {
 		fmt.Println("Update the existing config file.")
 		c, err := app.LoadConfigPath(configPath)
@@ -41,7 +40,7 @@ func actionAuth(ctx *cli.Context) {
 		config = c
 	} else {
 		fmt.Println("Create a new config file.")
-		config = bullet.NewConfig()
+		config = app.NewConfig()
 	}
 
 	for {
