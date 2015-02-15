@@ -6,31 +6,31 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/mitsuse/bullet/pushbullet/pushes"
+	"github.com/mitsuse/bullet/pushbullet/requests"
 )
 
 // Push a note, which consists of "title" and "message" strings.
-func (pb *Pushbullet) PostPushesNote(n *pushes.Note) error {
+func (pb *Pushbullet) PostPushesNote(n *requests.Note) error {
 	return pb.postPushes(n)
 }
 
 // Push a link, which consists of "title", "message" and "url" strings.
-func (pb *Pushbullet) PostPushesLink(l *pushes.Link) error {
+func (pb *Pushbullet) PostPushesLink(l *requests.Link) error {
 	return pb.postPushes(l)
 }
 
 // Push an address, which consists of the place "name" and "address (searchquery)" for map.
-func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
+func (pb *Pushbullet) PostPushesAddress(a *requests.Address) error {
 	return pb.postPushes(a)
 }
 
 // Push a checklist, which consists of "title" and the list of items.
-func (pb *Pushbullet) PostPushesChecklist(c *pushes.Checklist) error {
+func (pb *Pushbullet) PostPushesChecklist(c *requests.Checklist) error {
 	return pb.postPushes(c)
 }
 
 // Push a file, which consists of "title", "message" and the information of uploaded file.
-func (pb *Pushbullet) PostPushesFile(f *pushes.File) error {
+func (pb *Pushbullet) PostPushesFile(f *requests.File) error {
 	return pb.postPushes(f)
 }
 

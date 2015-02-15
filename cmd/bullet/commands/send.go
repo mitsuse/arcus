@@ -8,7 +8,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet/pushbullet"
-	"github.com/mitsuse/bullet/pushbullet/pushes"
+	"github.com/mitsuse/bullet/pushbullet/requests"
 )
 
 func NewSendCommand() cli.Command {
@@ -68,20 +68,20 @@ func actionSend(ctx *cli.Context) {
 
 func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 	if len(location) == 0 {
-		note := pushes.NewNote()
-		note.Title = title
-		note.Body = message
+		push := requests.NewNote()
+		push.Title = title
+		push.Body = message
 
-		return pb.PostPushesNote(note)
+		return pb.PostPushesNote(push)
 	}
 
 	if isLink(location) {
-		link := pushes.NewLink()
-		link.Title = title
-		link.Body = message
-		link.Url = location
+		push := requests.NewLink()
+		push.Title = title
+		push.Body = message
+		push.Url = location
 
-		return pb.PostPushesLink(link)
+		return pb.PostPushesLink(push)
 	}
 
 	return upload(pb, title, message, location)
@@ -105,7 +105,7 @@ func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 		return err
 	}
 
-	push := pushes.NewFile()
+	push := requests.NewFile()
 	push.Title = title
 	push.Body = message
 	push.FileName = res.FileName
