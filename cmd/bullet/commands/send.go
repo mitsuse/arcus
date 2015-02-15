@@ -72,7 +72,8 @@ func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 		push.Title = title
 		push.Body = message
 
-		return pb.PostPushesNote(push)
+		_, err := pb.PostPushesNote(push)
+		return err
 	}
 
 	if isLink(location) {
@@ -81,7 +82,8 @@ func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 		push.Body = message
 		push.Url = location
 
-		return pb.PostPushesLink(push)
+		_, err := pb.PostPushesLink(push)
+		return err
 	}
 
 	return upload(pb, title, message, location)
@@ -112,7 +114,11 @@ func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 	push.FileType = res.FileType
 	push.FileUrl = res.FileUrl
 
-	return pb.PostPushesFile(push)
+	if _, err := pb.PostPushesFile(push); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func isLink(location string) bool {
