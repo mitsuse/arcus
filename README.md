@@ -18,6 +18,13 @@ Execute the below command and register your access token:
 $ bullet auth
 ```
 
+The path of config file is `$HOME/.config.bullet`.
+If you want to specify the path, use `-c` option:
+
+```bash
+$ bullet auth -c <path to the config file>
+```
+
 ### Push
 
 Send a message to your devices via Pushbullet with the following command:
