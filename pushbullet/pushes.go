@@ -2,6 +2,7 @@ package pushbullet
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"net/http"
 
@@ -24,7 +25,7 @@ func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
 }
 
 // Push a checklist, which consists of "title" and the list of items.
-func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
+func (pb *Pushbullet) PostPushesChecklist(c *pushes.Checklist) error {
 	return pb.postPushes(c)
 }
 
@@ -33,10 +34,12 @@ func (pb *Pushbullet) PostPushesFile(f *pushes.File) error {
 	return pb.postPushes(f)
 }
 
-func (pb *Pushbullet) postPushes(p pushes.Push) error {
+// func (pb *Pushbullet) postPushes(p pushes.Push) error {
+func (pb *Pushbullet) postPushes(p interface{}) error {
 	buffer := &bytes.Buffer{}
 
-	if err := p.Dump(buffer); err != nil {
+	encoder := json.NewEncoder(buffer)
+	if err := encoder.Encode(p); err != nil {
 		return err
 	}
 
