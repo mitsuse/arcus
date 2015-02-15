@@ -45,6 +45,8 @@ If you want to notify a specific device, use `-d` option with its *nickname*:
 $ bullet send -d <nickname> -t <title> -m <message>
 ```
 
+The registered devices can be listed with `bullet list`.
+
 ## Installation
 
 The executable binaries have not been distributed yet.
