@@ -8,10 +8,12 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/mitsuse/bullet/pushbullet/responses"
 )
 
 // Post the information of file and get the information of upload destination.
-func (pb *Pushbullet) PostUploadRequest(name, mime string) (*UploadReqRes, error) {
+func (pb *Pushbullet) PostUploadRequest(name, mime string) (*responses.Upload, error) {
 	res, err := pb.postUploadRequest(name, mime)
 	if err != nil {
 		return nil, err
@@ -24,12 +26,12 @@ func (pb *Pushbullet) PostUploadRequest(name, mime string) (*UploadReqRes, error
 
 	decoder := json.NewDecoder(res.Body)
 
-	var uploadReqRes *UploadReqRes
-	if err := decoder.Decode(&uploadReqRes); err != nil {
+	var upload *responses.Upload
+	if err := decoder.Decode(&upload); err != nil {
 		return nil, err
 	}
 
-	return uploadReqRes, nil
+	return upload, nil
 }
 
 func (pb *Pushbullet) postUploadRequest(name, mime string) (*http.Response, error) {
@@ -54,7 +56,7 @@ func (pb *Pushbullet) postUploadRequest(name, mime string) (*http.Response, erro
 }
 
 // Upload a file to S3 specified with the response of PostUploadRequest.
-func Upload(upload *UploadReqRes, reader io.Reader) error {
+func Upload(upload *responses.Upload, reader io.Reader) error {
 	req, err := createMultipartReq(upload, reader)
 	if err != nil {
 		return err
@@ -76,7 +78,7 @@ func Upload(upload *UploadReqRes, reader io.Reader) error {
 	return nil
 }
 
-func createMultipartReq(upload *UploadReqRes, reader io.Reader) (*http.Request, error) {
+func createMultipartReq(upload *responses.Upload, reader io.Reader) (*http.Request, error) {
 	dest := upload.Data
 
 	buffer := &bytes.Buffer{}
