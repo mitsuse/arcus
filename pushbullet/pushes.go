@@ -34,7 +34,6 @@ func (pb *Pushbullet) PostPushesFile(f *requests.File) error {
 	return pb.postPushes(f)
 }
 
-// func (pb *Pushbullet) postPushes(p pushes.Push) error {
 func (pb *Pushbullet) postPushes(p interface{}) error {
 	buffer := &bytes.Buffer{}
 
