@@ -4,26 +4,27 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/cmd/bullet/commands"
 )
 
 func main() {
-	app := initApp()
-	app.Run(os.Args)
+	cmd := initCmd()
+	cmd.Run(os.Args)
 }
 
-func initApp() *cli.App {
-	app := cli.NewApp()
+func initCmd() *cli.App {
+	cmd := cli.NewApp()
 
-	app.Name = commands.APP_NAME
-	app.Version = commands.APP_VERSION
-	app.Usage = commands.APP_DESC
+	cmd.Name = app.NAME
+	cmd.Version = app.VERSION
+	cmd.Usage = app.DESC
 
-	app.Commands = []cli.Command{
+	cmd.Commands = []cli.Command{
 		commands.NewAuthCommand(),
 		commands.NewSendCommand(),
 		commands.NewListCommand(),
 	}
 
-	return app
+	return cmd
 }

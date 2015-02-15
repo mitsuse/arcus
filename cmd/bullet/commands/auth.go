@@ -7,6 +7,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet"
+	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
@@ -31,9 +32,9 @@ func actionAuth(ctx *cli.Context) {
 	var config *bullet.Config
 	if _, err := os.Stat(configPath); err == nil {
 		fmt.Println("Update the existing config file.")
-		c, err := loadConfigPath(configPath)
+		c, err := app.LoadConfigPath(configPath)
 		if err != nil {
-			printError(err)
+			app.PrintError(err)
 			return
 		}
 
@@ -47,7 +48,7 @@ func actionAuth(ctx *cli.Context) {
 		fmt.Print("access token: ")
 		token, err := readToken()
 		if err != nil {
-			printError(err)
+			app.PrintError(err)
 			return
 		}
 		config.SetToken(token)
@@ -59,8 +60,8 @@ func actionAuth(ctx *cli.Context) {
 		fmt.Println("The access token is invalid.")
 	}
 
-	if err := dumpConfigPath(config, configPath); err != nil {
-		printError(err)
+	if err := app.DumpConfigPath(config, configPath); err != nil {
+		app.PrintError(err)
 		return
 	}
 }
@@ -71,7 +72,7 @@ func readToken() (string, error) {
 	scanner.Scan()
 
 	if err := scanner.Err(); err != nil {
-		printError(err)
+		app.PrintError(err)
 		return "", err
 	}
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
@@ -25,9 +26,9 @@ func NewListCommand() cli.Command {
 func actionList(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
-	config, err := loadConfigPath(configPath)
+	config, err := app.LoadConfigPath(configPath)
 	if err != nil {
-		printError(err)
+		app.PrintError(err)
 		return
 	}
 
@@ -35,7 +36,7 @@ func actionList(ctx *cli.Context) {
 
 	res, err := pb.GetDevices()
 	if err != nil {
-		printError(err)
+		app.PrintError(err)
 		return
 	}
 

@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/bullet/cmd/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 	"github.com/mitsuse/bullet/pushbullet/requests"
 )
@@ -54,9 +55,9 @@ func NewSendCommand() cli.Command {
 func actionSend(ctx *cli.Context) {
 	configPath := ctx.String("config")
 
-	config, err := loadConfigPath(configPath)
+	config, err := app.LoadConfigPath(configPath)
 	if err != nil {
-		printError(err)
+		app.PrintError(err)
 		return
 	}
 
@@ -69,13 +70,13 @@ func actionSend(ctx *cli.Context) {
 
 	deviceId, err := getDeviceId(pb, device)
 	if err != nil {
-		printError(err)
+		app.PrintError(err)
 		return
 	}
 
 	if err := send(pb, deviceId, title, message, location); err != nil {
 		// TODO: Print an error message easy to understand.
-		printError(err)
+		app.PrintError(err)
 		return
 	}
 }
