@@ -40,7 +40,7 @@ func actionAuth(ctx *cli.Context) {
 		config = c
 	} else {
 		fmt.Println("Create a new config file.")
-		config = app.NewConfig()
+		config = &app.Config{}
 	}
 
 	for {
@@ -50,9 +50,9 @@ func actionAuth(ctx *cli.Context) {
 			app.PrintError(err)
 			return
 		}
-		config.SetToken(token)
+		config.Token = token
 
-		pb := pushbullet.New(config.Token())
+		pb := pushbullet.New(config.Token)
 		if _, err := pb.GetUsersMe(); err == nil {
 			break
 		}

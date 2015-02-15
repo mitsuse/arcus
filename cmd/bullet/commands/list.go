@@ -32,7 +32,7 @@ func actionList(ctx *cli.Context) {
 		return
 	}
 
-	pb := pushbullet.New(config.Token())
+	pb := pushbullet.New(config.Token)
 
 	res, err := pb.GetDevices()
 	if err != nil {

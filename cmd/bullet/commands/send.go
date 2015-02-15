@@ -61,7 +61,7 @@ func actionSend(ctx *cli.Context) {
 		return
 	}
 
-	pb := pushbullet.New(config.Token())
+	pb := pushbullet.New(config.Token)
 
 	title := ctx.String("title")
 	message := ctx.String("message")
