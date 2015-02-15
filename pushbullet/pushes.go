@@ -2,6 +2,7 @@ package pushbullet
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"net/http"
 
@@ -33,10 +34,12 @@ func (pb *Pushbullet) PostPushesFile(f *pushes.File) error {
 	return pb.postPushes(f)
 }
 
-func (pb *Pushbullet) postPushes(p pushes.Push) error {
+// func (pb *Pushbullet) postPushes(p pushes.Push) error {
+func (pb *Pushbullet) postPushes(p interface{}) error {
 	buffer := &bytes.Buffer{}
 
-	if err := p.Dump(buffer); err != nil {
+	encoder := json.NewEncoder(buffer)
+	if err := encoder.Encode(p); err != nil {
 		return err
 	}
 

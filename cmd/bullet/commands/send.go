@@ -68,12 +68,23 @@ func actionSend(ctx *cli.Context) {
 
 func send(pb *pushbullet.Pushbullet, title, message, location string) error {
 	if len(location) == 0 {
-		note := pushes.NewNote(title, message)
+		note := &pushes.Note{
+			Type:  pushes.TYPE_NOTE,
+			Title: title,
+			Body:  message,
+		}
+
 		return pb.PostPushesNote(note)
 	}
 
 	if isLink(location) {
-		link := pushes.NewLink(title, message, location)
+		link := &pushes.Link{
+			Type:  pushes.TYPE_LINK,
+			Title: title,
+			Body:  message,
+			Url:   location,
+		}
+
 		return pb.PostPushesLink(link)
 	}
 
@@ -98,7 +109,14 @@ func upload(pb *pushbullet.Pushbullet, title, message, location string) error {
 		return err
 	}
 
-	push := pushes.NewFile(title, message, res.FileName, res.FileType, res.FileUrl)
+	push := &pushes.File{
+		Type:     pushes.TYPE_FILE,
+		Title:    title,
+		Body:     message,
+		FileName: res.FileName,
+		FileType: res.FileType,
+		FileUrl:  res.FileUrl,
+	}
 
 	return pb.PostPushesFile(push)
 }
