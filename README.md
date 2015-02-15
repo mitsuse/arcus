@@ -22,10 +22,10 @@ Send a message to your devices via Pushbullet with the following command:
 $ bullet send -t <title> -m <message>
 ```
 
-You can send a link with the message:
+You can send a link or a file with the message:
 
 ```bash
-$ bullet send -t <title> -m <message> -l <url>
+$ bullet send -t <title> -m <message> -l <url or path>
 ```
 
 ## Install
