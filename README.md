@@ -42,7 +42,7 @@ $ bullet send -t <title> -m <message> -l <url or path>
 If you want to notify a specific device, use `-d` option with its *nickname*:
 
 ```bash
-$ bullet send -d <device's nickname> -t <title> -m <message>
+$ bullet send -d <nickname> -t <title> -m <message>
 ```
 
 ## Installation
