@@ -25,7 +25,7 @@ func (pb *Pushbullet) PostPushesAddress(a *pushes.Address) error {
 }
 
 // Push a checklist, which consists of "title" and the list of items.
-func (pb *Pushbullet) PostPushesCheck(c *pushes.Check) error {
+func (pb *Pushbullet) PostPushesChecklist(c *pushes.Checklist) error {
 	return pb.postPushes(c)
 }
 

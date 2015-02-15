@@ -6,11 +6,11 @@ See the API documentation for the details: https://docs.pushbullet.com/#pushes
 package pushes
 
 const (
-	TYPE_NOTE    = "note"
-	TYPE_LINK    = "link"
-	TYPE_ADDRESS = "address"
-	TYPE_LIST    = "list"
-	TYPE_FILE    = "file"
+	TYPE_NOTE       = "note"
+	TYPE_LINK       = "link"
+	TYPE_ADDRESS    = "address"
+	TYPE_CHEKCKLIST = "list"
+	TYPE_FILE       = "file"
 )
 
 type Push struct {
@@ -60,18 +60,18 @@ func NewAddress() *Address {
 	return &Address{Push: p}
 }
 
-type Check struct {
+type Checklist struct {
 	*Push
 	Title   string   `json:"title"`
 	ItemSeq []string `json:"items"`
 }
 
-func NewCheck() *Check {
+func NewChecklist() *Checklist {
 	p := &Push{
-		Type: TYPE_LIST,
+		Type: TYPE_CHEKCKLIST,
 	}
 
-	return &Check{Push: p}
+	return &Checklist{Push: p}
 }
 
 type File struct {
