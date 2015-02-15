@@ -5,7 +5,15 @@ const (
 )
 
 type Check struct {
-	Type    string   `json:"type"`
+	*Push
 	Title   string   `json:"title"`
 	ItemSeq []string `json:"items"`
+}
+
+func NewCheck() *Check {
+	p := &Push{
+		Type: TYPE_LIST,
+	}
+
+	return &Check{Push: p}
 }

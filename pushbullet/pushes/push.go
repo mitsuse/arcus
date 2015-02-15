@@ -5,11 +5,6 @@ See the API documentation for the details: https://docs.pushbullet.com/#pushes
 */
 package pushes
 
-import (
-	"io"
-)
-
-type Push interface {
-	Dump(writer io.Writer) error
-	Type() string
+type Push struct {
+	Type string `json:"type"`
 }

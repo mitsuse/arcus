@@ -5,7 +5,15 @@ const (
 )
 
 type Note struct {
-	Type  string `json:"type"`
+	*Push
 	Title string `json:"title"`
 	Body  string `json:"body"`
+}
+
+func NewNote() *Note {
+	p := &Push{
+		Type: TYPE_NOTE,
+	}
+
+	return &Note{Push: p}
 }
