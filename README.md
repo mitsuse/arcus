@@ -39,6 +39,12 @@ You can send a link or a file with the message:
 $ bullet send -t <title> -m <message> -l <url or path>
 ```
 
+If you want to notify a specific device, use `-d` option with its *nickname*:
+
+```bash
+$ bullet send -d <device's nickname> -t <title> -m <message>
+```
+
 ## Installation
 
 The executable binaries have not been distributed yet.
