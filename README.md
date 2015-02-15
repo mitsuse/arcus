@@ -18,7 +18,7 @@ Execute the below command and register your access token:
 $ bullet auth
 ```
 
-The path of config file is `$HOME/.config.bullet`.
+The default path of config file is `$HOME/.config.bullet`.
 If you want to specify the path, use `-c` option:
 
 ```bash
