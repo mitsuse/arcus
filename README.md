@@ -53,7 +53,7 @@ The executable binaries have not been distributed yet.
 Please compile sources into the binary:
 
 ```bash
-$ go get github.com/mitsuse/bullet/cmd/bullet
+$ go get github.com/mitsuse/bullet
 ```
 
 ## License

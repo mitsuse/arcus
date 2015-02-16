@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/cmd/bullet/app"
+	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
