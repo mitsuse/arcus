@@ -19,6 +19,7 @@ func initCmd() *cli.App {
 	cmd.Name = app.NAME
 	cmd.Version = app.VERSION
 	cmd.Usage = app.DESC
+	cmd.Author = app.AUTHOR
 
 	cmd.Commands = []cli.Command{
 		commands.NewAuthCommand(),
