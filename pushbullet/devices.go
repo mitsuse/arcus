@@ -10,7 +10,6 @@ import (
 
 // Get the devices thath can be pushed to.
 func (pb *Pushbullet) GetDevices() ([]*responses.Device, error) {
-	// TODO: Implement this.
 	req, err := http.NewRequest("GET", ENDPOINT_DEVICES, nil)
 	if err != nil {
 		return nil, err
