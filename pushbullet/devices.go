@@ -9,7 +9,7 @@ import (
 )
 
 // Get the devices thath can be pushed to.
-func (pb *Pushbullet) GetDevices() (*responses.Devices, error) {
+func (pb *Pushbullet) GetDevices() ([]*responses.Device, error) {
 	// TODO: Implement this.
 	req, err := http.NewRequest("GET", ENDPOINT_DEVICES, nil)
 	if err != nil {
@@ -31,12 +31,16 @@ func (pb *Pushbullet) GetDevices() (*responses.Devices, error) {
 		return nil, errors.New(res.Status)
 	}
 
-	var devices *responses.Devices
+	var devices *devicesResponse
 
 	decoder := json.NewDecoder(res.Body)
 	if err := decoder.Decode(&devices); err != nil {
 		return nil, err
 	}
 
-	return devices, nil
+	return devices.Devices, nil
+}
+
+type devicesResponse struct {
+	Devices []*responses.Device `json:"devices"`
 }
