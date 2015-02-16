@@ -4,8 +4,8 @@ base_package=github.com/mitsuse/bullet
 base_path=${GOPATH}/src/${base_package}
 
 package_list=(
-    ${base_package}/cmd/bullet/app
-    ${base_package}/cmd/bullet/commands
+    ${base_package}/app
+    ${base_package}/commands
     ${base_package}/pushbullet
     ${base_package}/pushbullet/requests
     ${base_package}/pushbullet/responses
