@@ -13,6 +13,10 @@ import (
 	"github.com/mitsuse/bullet/pushbullet/requests"
 )
 
+/*
+Create "send" sub-command.
+This sub-command sends a "push" to devices such as "note", "link" or "file".
+*/
 func NewSendCommand() cli.Command {
 	command := cli.Command{
 		Name:      "send",
