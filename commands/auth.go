@@ -10,6 +10,10 @@ import (
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
+/*
+Create "auth" sub-command.
+This sub-command updates the access token and check its validity.
+*/
 func NewAuthCommand() cli.Command {
 	command := cli.Command{
 		Name:      "auth",

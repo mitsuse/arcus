@@ -8,6 +8,10 @@ import (
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
+/*
+Create "list" sub-command.
+This sub-command lists the names of registered devices on Pushbullet.
+*/
 func NewListCommand() cli.Command {
 	command := cli.Command{
 		Name:      "list",

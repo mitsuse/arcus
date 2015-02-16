@@ -1,3 +1,6 @@
+/*
+Package "app" provides the information of "bullet" command and some utilities.
+*/
 package app
 
 import (
