@@ -1,6 +1,6 @@
 package responses
 
-type UsersMe struct {
+type User struct {
 	Iden            string       `json:"iden"`
 	Email           string       `json:"email"`
 	EmailNormalized string       `json:"email_normalized"`

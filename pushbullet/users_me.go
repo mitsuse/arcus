@@ -9,7 +9,7 @@ import (
 )
 
 // Get the current user.
-func (pb *Pushbullet) GetUsersMe() (*responses.UsersMe, error) {
+func (pb *Pushbullet) GetUsersMe() (*responses.User, error) {
 	req, err := http.NewRequest("GET", ENDPOINT_USERS_ME, nil)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func (pb *Pushbullet) GetUsersMe() (*responses.UsersMe, error) {
 		return nil, errors.New(res.Status)
 	}
 
-	var me *responses.UsersMe
+	var me *responses.User
 
 	decoder := json.NewDecoder(res.Body)
 	if err := decoder.Decode(&me); err != nil {
