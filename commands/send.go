@@ -141,12 +141,12 @@ func upload(pb *pushbullet.Pushbullet, deviceId, title, message, location string
 
 func getDeviceId(pb *pushbullet.Pushbullet, name string) (string, error) {
 	if len(name) > 0 {
-		deviceRes, err := pb.GetDevices()
+		res, err := pb.GetDevices()
 		if err != nil {
 			return "", err
 		}
 
-		for _, device := range deviceRes.Devices {
+		for _, device := range res {
 			if device.Nickname == name {
 				return device.Iden, nil
 			}

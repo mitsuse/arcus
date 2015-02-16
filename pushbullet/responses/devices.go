@@ -1,9 +1,5 @@
 package responses
 
-type Devices struct {
-	Devices []*Device `json:"devices"`
-}
-
 type Device struct {
 	Iden         string  `json:"iden"`
 	PushToken    string  `json:"push_token"`

@@ -40,7 +40,7 @@ func actionList(ctx *cli.Context) {
 		return
 	}
 
-	for _, device := range res.Devices {
+	for _, device := range res {
 		if !device.Pushable {
 			continue
 		}
