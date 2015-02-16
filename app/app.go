@@ -14,23 +14,3 @@ const (
 func PrintError(err error) {
 	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
 }
-
-func LoadConfigPath(path string) (*Config, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	return LoadConfig(file)
-}
-
-func DumpConfigPath(config *Config, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	return DumpConfig(config, file)
-}
