@@ -106,10 +106,7 @@ func (pb *Pushbullet) postPushes(p interface{}) (*http.Response, error) {
 	req.Header.Add("Content-Type", "application/json")
 	req.SetBasicAuth(pb.token, "")
 
-	// TODO: Set the timeout.
-	client := &http.Client{}
-
-	res, err := client.Do(req)
+	res, err := pb.client.Do(req)
 	if err != nil {
 		return nil, err
 	}

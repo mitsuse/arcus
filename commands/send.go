@@ -120,7 +120,7 @@ func upload(pb *pushbullet.Pushbullet, deviceId, title, message, location string
 		return err
 	}
 
-	if err := pushbullet.Upload(res, file); err != nil {
+	if err := pushbullet.Upload(pb.Client(), res, file); err != nil {
 		return err
 	}
 

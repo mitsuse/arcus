@@ -12,21 +12,42 @@ See the API documentation for the details: https://docs.pushbullet.com/#http
 */
 package pushbullet
 
+import (
+	"net/http"
+)
+
 type Pushbullet struct {
-	token string
+	client *http.Client
+	token  string
 }
 
 /*
-Create an instance to call Pushbullet HTTP API.
+Create a client to call Pushbullet HTTP API.
 This requires the access token.
-Ihe token is found in account settings.
+The token is found in account settings.
 
 Account settings: https://www.pushbullet.com/account
 */
 func New(token string) *Pushbullet {
+	return NewClient(token, http.DefaultClient)
+}
+
+/*
+Create a client to call Pushbullet HTTP API.
+This requires the access token and an aribitary *http.Client.
+The token is found in account settings.
+
+Account settings: https://www.pushbullet.com/account
+*/
+func NewClient(token string, c *http.Client) *Pushbullet {
 	pb := &Pushbullet{
-		token: token,
+		token:  token,
+		client: c,
 	}
 
 	return pb
+}
+
+func (pb *Pushbullet) Client() *http.Client {
+	return pb.client
 }

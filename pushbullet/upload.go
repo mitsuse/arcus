@@ -49,21 +49,15 @@ func (pb *Pushbullet) postUploadRequest(name, mime string) (*http.Response, erro
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.SetBasicAuth(pb.token, "")
 
-	// TODO: Set the timeout.
-	client := &http.Client{}
-
-	return client.Do(req)
+	return pb.client.Do(req)
 }
 
 // Upload a file to S3 specified with the response of PostUploadRequest.
-func Upload(upload *responses.Upload, reader io.Reader) error {
+func Upload(client *http.Client, upload *responses.Upload, reader io.Reader) error {
 	req, err := createUploadReq(upload, reader)
 	if err != nil {
 		return err
 	}
-
-	// TODO: Set the timeout.
-	client := &http.Client{}
 
 	res, err := client.Do(req)
 	if err != nil {

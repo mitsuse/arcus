@@ -17,10 +17,7 @@ func (pb *Pushbullet) GetUsersMe() (*responses.User, error) {
 
 	req.SetBasicAuth(pb.token, "")
 
-	// TODO: Set the timeout.
-	client := &http.Client{}
-
-	res, err := client.Do(req)
+	res, err := pb.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
