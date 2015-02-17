@@ -5,7 +5,7 @@
 [![Wercker](http://img.shields.io/wercker/ci/54e273b67e0e958634000915.svg?style=flat-square)](https://app.wercker.com/project/bykey/c73697ea3e91260dfed3ab032341f2a1)
 [![Coverage](https://img.shields.io/coveralls/mitsuse/bullet.svg?style=flat-square)](https://coveralls.io/r/mitsuse/bullet)
 
-A command-line tool to send a message or a file to [Pushbullet](https://www.pushbullet.com/).
+A command-line tool to send a message to devices via [Pushbullet](https://www.pushbullet.com/).
 
 ## Usage
 
