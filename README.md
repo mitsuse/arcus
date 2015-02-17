@@ -49,11 +49,28 @@ The registered devices can be listed with `bullet list`.
 
 ## Installation
 
-The executable binaries have not been distributed yet.
-Please compile sources into the binary:
+### OSX
+
+If you are an OSX user, you can install "bullet" with [Homebrew](http://brew.sh/):
 
 ```bash
-$ go get github.com/mitsuse/bullet
+brew tap mitsuse/bullet
+brew install bullet-cmd
+```
+
+### ArchLinux
+
+The [PKGBUILD file](https://aur.archlinux.org/packages/bullet/) is available on AUR.
+
+### Others
+
+For other platform, the executable binaries are downloadable
+from the [release page](https://github.com/mitsuse/bullet/releases).
+
+In the case of building from the sources, try the following:
+
+```bash
+$ go get -u github.com/mitsuse/bullet
 ```
 
 ## License
