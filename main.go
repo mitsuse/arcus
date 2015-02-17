@@ -20,6 +20,7 @@ func initCmd() *cli.App {
 	cmd.Version = app.VERSION
 	cmd.Usage = app.DESC
 	cmd.Author = app.AUTHOR
+	cmd.Email = app.AUTHOR_EMAIL
 
 	cmd.Commands = []cli.Command{
 		commands.NewAuthCommand(),
