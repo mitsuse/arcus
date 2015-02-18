@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"os/user"
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet/app"
@@ -9,11 +10,21 @@ import (
 )
 
 func main() {
-	cmd := initCmd()
+	cmd, err := initCmd()
+	if err != nil {
+		app.PrintError(err)
+		return
+	}
+
 	cmd.Run(os.Args)
 }
 
-func initCmd() *cli.App {
+func initCmd() (*cli.App, error) {
+	u, err := user.Current()
+	if err != nil {
+		return nil, err
+	}
+
 	cmd := cli.NewApp()
 
 	cmd.Name = app.NAME
@@ -23,10 +34,10 @@ func initCmd() *cli.App {
 	cmd.Email = app.AUTHOR_EMAIL
 
 	cmd.Commands = []cli.Command{
-		commands.NewAuthCommand(),
-		commands.NewSendCommand(),
-		commands.NewListCommand(),
+		commands.NewAuthCommand(u),
+		commands.NewSendCommand(u),
+		commands.NewListCommand(u),
 	}
 
-	return cmd
+	return cmd, nil
 }
