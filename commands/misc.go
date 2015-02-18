@@ -2,23 +2,18 @@ package commands
 
 import (
 	"fmt"
-	"os/user"
-	"runtime"
+	"os"
 
 	"github.com/codegangsta/cli"
 )
 
-func configFlag(u *user.User) cli.StringFlag {
-	var configName string
-	if runtime.GOOS == "windows" {
-		configName = "_config.bullet"
-	} else {
-		configName = ".config.bullet"
-	}
+func configFlag() cli.StringFlag {
+	homePath := os.Getenv("HOME")
+	configName := ".config.bullet"
 
 	flag := cli.StringFlag{
 		Name:  "config,c",
-		Value: fmt.Sprintf("%s/%s", u.HomeDir, configName),
+		Value: fmt.Sprintf("%s/%s", homePath, configName),
 		Usage: "The path of your config file",
 	}
 
