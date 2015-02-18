@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"os/user"
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet/app"
@@ -15,7 +14,7 @@ import (
 Create "auth" sub-command.
 This sub-command updates the access token and check its validity.
 */
-func NewAuthCommand(u *user.User) cli.Command {
+func NewAuthCommand() cli.Command {
 	command := cli.Command{
 		Name:      "auth",
 		ShortName: "a",
@@ -23,7 +22,7 @@ func NewAuthCommand(u *user.User) cli.Command {
 		Action:    actionAuth,
 
 		Flags: []cli.Flag{
-			configFlag(u),
+			configFlag(),
 		},
 	}
 
