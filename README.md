@@ -11,13 +11,14 @@ A command-line tool to send a message to devices via [Pushbullet](https://www.pu
 
 ### Configuration
 
-First, bullet requires the access token to call Pushbullet API.
-Execute the below command and register your access token:
+The command "bullet" requires the access token to call Pushbullet API.
+Execute the following command and register your access token:
 
 ```bash
 $ bullet auth
 ```
 
+The access token is stored in a config file.
 The default path of config file is `$HOME/.config.bullet`.
 If you want to specify the path, use `-c` option:
 
@@ -39,7 +40,7 @@ You can send a link or a file with the message:
 $ bullet send -t <title> -m <message> -l <url or path>
 ```
 
-If you want to notify a specific device, use `-d` option with its *nickname*:
+If you want to notify the specific device, use `-d` option with its *nickname*:
 
 ```bash
 $ bullet send -d <nickname> -t <title> -m <message>
