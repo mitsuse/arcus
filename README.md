@@ -61,7 +61,7 @@ brew install bullet-cmd
 
 ### ArchLinux
 
-The [PKGBUILD file](https://aur.archlinux.org/packages/bullet/) is available on AUR.
+The [PKGBUILD file](https://aur.archlinux.org/packages/bullet-cmd/) is available on AUR.
 
 ### Others
 
