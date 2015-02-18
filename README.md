@@ -11,13 +11,14 @@ A command-line tool to send a message to devices via [Pushbullet](https://www.pu
 
 ### Configuration
 
-First, bullet requires the access token to call Pushbullet API.
-Execute the below command and register your access token:
+The command "bullet" requires the access token to call Pushbullet API.
+Execute the following command and register your access token:
 
 ```bash
 $ bullet auth
 ```
 
+The access token is stored in a config file.
 The default path of config file is `$HOME/.config.bullet`.
 If you want to specify the path, use `-c` option:
 
@@ -39,7 +40,7 @@ You can send a link or a file with the message:
 $ bullet send -t <title> -m <message> -l <url or path>
 ```
 
-If you want to notify a specific device, use `-d` option with its *nickname*:
+If you want to notify the specific device, use `-d` option with its *nickname*:
 
 ```bash
 $ bullet send -d <nickname> -t <title> -m <message>
@@ -49,11 +50,28 @@ The registered devices can be listed with `bullet list`.
 
 ## Installation
 
-The executable binaries have not been distributed yet.
-Please compile sources into the binary:
+### OSX
+
+If you are an OSX user, you can install "bullet" with [Homebrew](http://brew.sh/):
 
 ```bash
-$ go get github.com/mitsuse/bullet
+brew tap mitsuse/bullet
+brew install bullet-cmd
+```
+
+### ArchLinux
+
+The [PKGBUILD file](https://aur.archlinux.org/packages/bullet/) is available on AUR.
+
+### Others
+
+For other platform, the executable binaries are downloadable
+from the [release page](https://github.com/mitsuse/bullet/releases).
+
+In the case of building from the sources, try the following:
+
+```bash
+$ go get -u github.com/mitsuse/bullet
 ```
 
 ## License

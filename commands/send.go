@@ -4,6 +4,7 @@ import (
 	"errors"
 	"mime"
 	"os"
+	"os/user"
 	"path"
 	"regexp"
 
@@ -17,7 +18,7 @@ import (
 Create "send" sub-command.
 This sub-command sends a "push" to devices such as "note", "link" or "file".
 */
-func NewSendCommand() cli.Command {
+func NewSendCommand(u *user.User) cli.Command {
 	command := cli.Command{
 		Name:      "send",
 		ShortName: "s",
@@ -25,7 +26,7 @@ func NewSendCommand() cli.Command {
 		Action:    actionSend,
 
 		Flags: []cli.Flag{
-			configFlag(),
+			configFlag(u),
 
 			cli.StringFlag{
 				Name:  "device,d",

@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"os/user"
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/bullet/app"
@@ -12,7 +13,7 @@ import (
 Create "list" sub-command.
 This sub-command lists the names of registered devices on Pushbullet.
 */
-func NewListCommand() cli.Command {
+func NewListCommand(u *user.User) cli.Command {
 	command := cli.Command{
 		Name:      "list",
 		ShortName: "l",
@@ -20,7 +21,7 @@ func NewListCommand() cli.Command {
 		Action:    actionList,
 
 		Flags: []cli.Flag{
-			configFlag(),
+			configFlag(u),
 		},
 	}
 
