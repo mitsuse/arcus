@@ -25,8 +25,6 @@ func NewSendCommand() cli.Command {
 		Action:    actionSend,
 
 		Flags: []cli.Flag{
-			configFlag(),
-
 			cli.StringFlag{
 				Name:  "device,d",
 				Value: "",
@@ -57,15 +55,14 @@ func NewSendCommand() cli.Command {
 }
 
 func actionSend(ctx *cli.Context) {
-	configPath := ctx.String("config")
-
-	config, err := app.LoadConfigPath(configPath)
-	if err != nil {
-		app.PrintError(err)
+	token := os.Getenv("BULLET_ACCESS_TOKEN")
+	if len(token) == 0 {
+		// TODO: Set an error message.
+		app.PrintError(errors.New(""))
 		return
 	}
 
-	pb := pushbullet.New(config.Token)
+	pb := pushbullet.New(token)
 
 	title := ctx.String("title")
 	message := ctx.String("message")
