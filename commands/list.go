@@ -27,8 +27,8 @@ func NewListCommand() cli.Command {
 func actionList(ctx *cli.Context) {
 	token := os.Getenv("BULLET_ACCESS_TOKEN")
 	if len(token) == 0 {
-		// TODO: Set an error message.
-		printError(errors.New(""))
+		message := "The environment variable \"BULLET_ACCESS_TOKEN\" should not be empty."
+		printError(errors.New(message))
 		return
 	}
 
