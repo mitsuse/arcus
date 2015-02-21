@@ -8,7 +8,6 @@ import (
 	"regexp"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 	"github.com/mitsuse/bullet/pushbullet/requests"
 )
@@ -25,8 +24,6 @@ func NewSendCommand() cli.Command {
 		Action:    actionSend,
 
 		Flags: []cli.Flag{
-			configFlag(),
-
 			cli.StringFlag{
 				Name:  "device,d",
 				Value: "",
@@ -57,15 +54,14 @@ func NewSendCommand() cli.Command {
 }
 
 func actionSend(ctx *cli.Context) {
-	configPath := ctx.String("config")
-
-	config, err := app.LoadConfigPath(configPath)
-	if err != nil {
-		app.PrintError(err)
+	token := os.Getenv("BULLET_ACCESS_TOKEN")
+	if len(token) == 0 {
+		message := "The environment variable \"BULLET_ACCESS_TOKEN\" should not be empty."
+		printError(errors.New(message))
 		return
 	}
 
-	pb := pushbullet.New(config.Token)
+	pb := pushbullet.New(token)
 
 	title := ctx.String("title")
 	message := ctx.String("message")
@@ -74,13 +70,13 @@ func actionSend(ctx *cli.Context) {
 
 	deviceId, err := getDeviceId(pb, device)
 	if err != nil {
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 
 	if err := send(pb, deviceId, title, message, location); err != nil {
 		// TODO: Print an error message easy to understand.
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 }

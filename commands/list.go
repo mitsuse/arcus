@@ -1,10 +1,11 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
+	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
@@ -18,29 +19,24 @@ func NewListCommand() cli.Command {
 		ShortName: "l",
 		Usage:     "List devices that can be pushed to",
 		Action:    actionList,
-
-		Flags: []cli.Flag{
-			configFlag(),
-		},
 	}
 
 	return command
 }
 
 func actionList(ctx *cli.Context) {
-	configPath := ctx.String("config")
-
-	config, err := app.LoadConfigPath(configPath)
-	if err != nil {
-		app.PrintError(err)
+	token := os.Getenv("BULLET_ACCESS_TOKEN")
+	if len(token) == 0 {
+		message := "The environment variable \"BULLET_ACCESS_TOKEN\" should not be empty."
+		printError(errors.New(message))
 		return
 	}
 
-	pb := pushbullet.New(config.Token)
+	pb := pushbullet.New(token)
 
 	res, err := pb.GetDevices()
 	if err != nil {
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 
