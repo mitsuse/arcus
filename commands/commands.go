@@ -10,7 +10,7 @@ import (
 
 const (
 	NAME         = "bullet"
-	VERSION      = "0.1.0"
+	VERSION      = "0.1.2"
 	DESC         = "A command-line tool to send a message to devices via Pushbullet."
 	AUTHOR       = "Tomoya Kose (mitsuse)"
 	AUTHOR_EMAIL = "tomoya@mitsuse.jp"
