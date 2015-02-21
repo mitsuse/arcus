@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/commands"
 )
 
@@ -16,11 +15,11 @@ func main() {
 func initCmd() *cli.App {
 	cmd := cli.NewApp()
 
-	cmd.Name = app.NAME
-	cmd.Version = app.VERSION
-	cmd.Usage = app.DESC
-	cmd.Author = app.AUTHOR
-	cmd.Email = app.AUTHOR_EMAIL
+	cmd.Name = commands.NAME
+	cmd.Version = commands.VERSION
+	cmd.Usage = commands.DESC
+	cmd.Author = commands.AUTHOR
+	cmd.Email = commands.AUTHOR_EMAIL
 
 	cmd.Commands = []cli.Command{
 		commands.NewSendCommand(),

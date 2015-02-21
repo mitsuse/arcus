@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 )
 
@@ -29,7 +28,7 @@ func actionList(ctx *cli.Context) {
 	token := os.Getenv("BULLET_ACCESS_TOKEN")
 	if len(token) == 0 {
 		// TODO: Set an error message.
-		app.PrintError(errors.New(""))
+		printError(errors.New(""))
 		return
 	}
 
@@ -37,7 +36,7 @@ func actionList(ctx *cli.Context) {
 
 	res, err := pb.GetDevices()
 	if err != nil {
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 

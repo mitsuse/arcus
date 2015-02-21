@@ -8,7 +8,6 @@ import (
 	"regexp"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/app"
 	"github.com/mitsuse/bullet/pushbullet"
 	"github.com/mitsuse/bullet/pushbullet/requests"
 )
@@ -58,7 +57,7 @@ func actionSend(ctx *cli.Context) {
 	token := os.Getenv("BULLET_ACCESS_TOKEN")
 	if len(token) == 0 {
 		// TODO: Set an error message.
-		app.PrintError(errors.New(""))
+		printError(errors.New(""))
 		return
 	}
 
@@ -71,13 +70,13 @@ func actionSend(ctx *cli.Context) {
 
 	deviceId, err := getDeviceId(pb, device)
 	if err != nil {
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 
 	if err := send(pb, deviceId, title, message, location); err != nil {
 		// TODO: Print an error message easy to understand.
-		app.PrintError(err)
+		printError(err)
 		return
 	}
 }

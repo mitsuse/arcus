@@ -1,7 +1,7 @@
 /*
-Package "app" provides the information of "bullet" command and some utilities.
+Package "commands" provides the information of "bullet" command and sub-commands.
 */
-package app
+package commands
 
 import (
 	"fmt"
@@ -16,6 +16,6 @@ const (
 	AUTHOR_EMAIL = "tomoya@mitsuse.jp"
 )
 
-func PrintError(err error) {
+func printError(err error) {
 	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
 }
