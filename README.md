@@ -11,18 +11,10 @@ A command-line tool to send a message to devices via [Pushbullet](https://www.pu
 ### Configuration
 
 The command "bullet" requires the access token to call Pushbullet API.
-Execute the following command and register your access token:
+Set the access token to the environment variable `BULLET_ACCESS_TOKEN`:
 
 ```bash
-$ bullet auth
-```
-
-The access token is stored in a config file.
-The default path of config file is `$HOME/.config.bullet`.
-If you want to specify the path, use `-c` option:
-
-```bash
-$ bullet auth -c <path to the config file>
+export BULLET_ACCESS_TOKEN=<your access token>
 ```
 
 ### Push
