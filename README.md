@@ -1,8 +1,12 @@
 # bullet
 
-[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](LICENSE.txt)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/mitsuse/bullet)
-[![Wercker](http://img.shields.io/wercker/ci/54e273b67e0e958634000915.svg?style=flat-square)](https://app.wercker.com/project/bykey/c73697ea3e91260dfed3ab032341f2a1)
+[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)][license]
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)][godoc]
+[![Wercker](http://img.shields.io/wercker/ci/54e273b67e0e958634000915.svg?style=flat-square)][wercker]
+
+[license]: LICENSE.txt
+[godoc]: http://godoc.org/github.com/mitsuse/bullet
+[wercker]: https://app.wercker.com/project/bykey/c73697ea3e91260dfed3ab032341f2a1
 
 A command-line tool to send a message to devices via [Pushbullet](https://www.pushbullet.com/).
 
@@ -11,18 +15,10 @@ A command-line tool to send a message to devices via [Pushbullet](https://www.pu
 ### Configuration
 
 The command "bullet" requires the access token to call Pushbullet API.
-Execute the following command and register your access token:
+Set the access token to the environment variable `BULLET_ACCESS_TOKEN`:
 
 ```bash
-$ bullet auth
-```
-
-The access token is stored in a config file.
-The default path of config file is `$HOME/.config.bullet`.
-If you want to specify the path, use `-c` option:
-
-```bash
-$ bullet auth -c <path to the config file>
+export BULLET_ACCESS_TOKEN=<your access token>
 ```
 
 ### Push
