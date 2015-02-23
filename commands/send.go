@@ -8,8 +8,8 @@ import (
 	"regexp"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/pushbullet"
-	"github.com/mitsuse/bullet/pushbullet/requests"
+	"github.com/mitsuse/pushbullet-go"
+	"github.com/mitsuse/pushbullet-go/requests"
 )
 
 /*
