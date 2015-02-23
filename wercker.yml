@@ -17,6 +17,10 @@ build:
         - tcnksm/zip:
             input: $WERCKER_OUTPUT_DIR/pkg
             output: $WERCKER_OUTPUT_DIR/dist
+    after-steps:
+        - mitsuse/bullet-send:
+            title: "${WERCKER_GIT_REPOSITORY} - Build ${WERCKER_RESULT}."
+            path: "${WERCKER_BUILD_URL}"
 deploy:
     steps:
         - tcnksm/ghr:
@@ -24,3 +28,7 @@ deploy:
             input: dist
             version: v0.1.2
             replace: true
+    after-steps:
+        - mitsuse/bullet-send:
+            title: "${WERCKER_GIT_REPOSITORY} - Build ${WERCKER_RESULT}."
+            path: "${WERCKER_DEPLOY_URL}"
