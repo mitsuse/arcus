@@ -5,9 +5,6 @@ base_path=${GOPATH}/src/${base_package}
 
 package_list=(
     ${base_package}/commands
-    ${base_package}/pushbullet
-    ${base_package}/pushbullet/requests
-    ${base_package}/pushbullet/responses
 )
 
 if [ ! -d ${base_path}/coverprofile ]
