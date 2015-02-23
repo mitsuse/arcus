@@ -1,8 +1,12 @@
 # bullet
 
-[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)](LICENSE.txt)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/mitsuse/bullet)
-[![Wercker](http://img.shields.io/wercker/ci/54e273b67e0e958634000915.svg?style=flat-square)](https://app.wercker.com/project/bykey/c73697ea3e91260dfed3ab032341f2a1)
+[![License](https://img.shields.io/badge/license-MIT-yellowgreen.svg?style=flat-square)][license]
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)][godoc]
+[![Wercker](http://img.shields.io/wercker/ci/54e273b67e0e958634000915.svg?style=flat-square)][wercker]
+
+[license]: LICENSE.txt
+[godoc]: http://godoc.org/github.com/mitsuse/bullet
+[wercker]: https://app.wercker.com/project/bykey/c73697ea3e91260dfed3ab032341f2a1
 
 A command-line tool to send a message to devices via [Pushbullet](https://www.pushbullet.com/).
 
