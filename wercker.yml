@@ -6,11 +6,13 @@ build:
             name: build
             code: |
                 go get -t ./...
+        - mitsuse/gover:
+            project: "github.com/mitsuse/kompl"
+            report: "coverage.txt"
         - script:
-            name: coverage
+            name: codecov
             code: |
-                bash coverage.bash
-                bash goveralls.bash
+                bash <(curl -s https://codecov.io/bash)
         - tcnksm/gox:
             os: "darwin linux"
             arch: "386 amd64"
