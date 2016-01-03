@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/bullet/commands"
+	"github.com/mitsuse/arcus/commands"
 )
 
 func main() {
