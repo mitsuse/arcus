@@ -1,4 +1,4 @@
-box: mitsuse/golang
+box: golang:1.5
 build:
     steps:
         - setup-go-workspace
