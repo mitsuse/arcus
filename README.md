@@ -54,10 +54,6 @@ brew tap mitsuse/bullet
 brew install bullet-cmd
 ```
 
-### ArchLinux
-
-The [PKGBUILD file](https://aur.archlinux.org/packages/bullet-cmd/) is available on AUR.
-
 ### Others
 
 For other platform, the executable binaries are downloadable
