@@ -1,5 +1,5 @@
 /*
-Package "commands" provides the information of "bullet" command and sub-commands.
+Package "commands" provides the information of `arcus` command and sub-commands.
 */
 package commands
 
@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	NAME         = "bullet"
+	NAME         = `arcus`
 	VERSION      = "0.1.3"
 	DESC         = "A command-line tool to send a message to devices via Pushbullet."
 	AUTHOR       = "Tomoya Kose (mitsuse)"
