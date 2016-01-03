@@ -1,4 +1,4 @@
-box: mitsuse/golang
+box: golang:1.5
 build:
     steps:
         - setup-go-workspace
@@ -6,29 +6,14 @@ build:
             name: build
             code: |
                 go get -t ./...
+        - mitsuse/gover:
+            project: "github.com/mitsuse/kompl"
+            report: "coverage.txt"
         - script:
-            name: coverage
+            name: codecov
             code: |
-                bash coverage.bash
-                bash goveralls.bash
-        - tcnksm/gox:
-            os: "darwin linux"
-            arch: "386 amd64"
-        - tcnksm/zip:
-            input: $WERCKER_OUTPUT_DIR/pkg
-            output: $WERCKER_OUTPUT_DIR/dist
+                bash <(curl -s https://codecov.io/bash)
     after-steps:
         - mitsuse/bullet-send:
             title: "${WERCKER_GIT_REPOSITORY} - Build ${WERCKER_RESULT}."
             path: "${WERCKER_BUILD_URL}"
-deploy:
-    steps:
-        - tcnksm/ghr:
-            token: $GITHUB_TOKEN
-            input: dist
-            version: v0.1.3
-            replace: true
-    after-steps:
-        - mitsuse/bullet-send:
-            title: "${WERCKER_GIT_REPOSITORY} - Build ${WERCKER_RESULT}."
-            path: "${WERCKER_DEPLOY_URL}"
