@@ -2,12 +2,11 @@ package application
 
 import (
 	"errors"
-	"mime"
 	"os"
-	"path"
 	"regexp"
 
 	"github.com/mitsuse/arcus/domain/device"
+	"github.com/mitsuse/arcus/domain/file"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
 )
@@ -41,21 +40,18 @@ func Send(token, title, message, location, deviceName string) error {
 		deviceId = device.Id()
 	}
 
-	// TODO: Remove this.
-	client := pushbullet.New(token)
-
 	// TODO: Print an error message easy to understand.
-	return send(client, deviceId, title, message, location)
+	return send(token, deviceId, title, message, location)
 }
 
-func send(pb *pushbullet.Pushbullet, deviceId, title, message, location string) error {
+func send(token, deviceId, title, message, location string) error {
 	if len(location) == 0 {
 		push := requests.NewNote()
 		push.Title = title
 		push.Body = message
 		push.DeviceIden = deviceId
 
-		_, err := pb.PostPushesNote(push)
+		_, err := pushbullet.New(token).PostPushesNote(push)
 		return err
 	}
 
@@ -66,40 +62,34 @@ func send(pb *pushbullet.Pushbullet, deviceId, title, message, location string) 
 		push.Url = location
 		push.DeviceIden = deviceId
 
-		_, err := pb.PostPushesLink(push)
+		_, err := pushbullet.New(token).PostPushesLink(push)
 		return err
 	}
 
-	return upload(pb, deviceId, title, message, location)
+	return upload(token, deviceId, title, message, location)
 }
 
-func upload(pb *pushbullet.Pushbullet, deviceId, title, message, location string) error {
-	fileName := path.Base(location)
-	fileType := mime.TypeByExtension(path.Ext(fileName))
-
-	res, err := pb.PostUploadRequest(fileName, fileType)
+func upload(token, deviceId, title, message, location string) error {
+	f, err := os.Open(location)
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
-	file, err := os.Open(location)
+	u, err := file.Upload(token, f)
 	if err != nil {
-		return err
-	}
-
-	if err := pushbullet.Upload(pb.Client(), res, file); err != nil {
 		return err
 	}
 
 	push := requests.NewFile()
 	push.Title = title
 	push.Body = message
-	push.FileName = res.FileName
-	push.FileType = res.FileType
-	push.FileUrl = res.FileUrl
+	push.FileName = u.Name()
+	push.FileType = u.Type()
+	push.FileUrl = u.Url()
 	push.DeviceIden = deviceId
 
-	if _, err := pb.PostPushesFile(push); err != nil {
+	if _, err := pushbullet.New(token).PostPushesFile(push); err != nil {
 		return err
 	}
 
