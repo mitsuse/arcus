@@ -14,6 +14,8 @@ const (
 	DESCRIPTION  = "A command-line tool to send a message to devices via Pushbullet."
 	AUTHOR       = "Tomoya Kose (mitsuse)"
 	AUTHOR_EMAIL = "tomoya@mitsuse.jp"
+
+	variableToken = "ARCUS_ACCESS_TOKEN"
 )
 
 func main() {
@@ -40,7 +42,7 @@ func newListCommand() cli.Command {
 		Usage:     "List devices that can be pushed to",
 
 		Action: func(c *cli.Context) {
-			token := os.Getenv("ARCUS_ACCESS_TOKEN")
+			token := getToken()
 
 			devices, err := application.ListDevices(token)
 			if err != nil {
@@ -94,7 +96,7 @@ func newSendCommand() cli.Command {
 		},
 
 		Action: func(c *cli.Context) {
-			token := os.Getenv("ARCUS_ACCESS_TOKEN")
+			token := getToken()
 			title := c.String("title")
 			message := c.String("message")
 			location := c.String("location")
@@ -108,6 +110,10 @@ func newSendCommand() cli.Command {
 	}
 
 	return command
+}
+
+func getToken() string {
+	return os.Getenv(variableToken)
 }
 
 func printError(err error) {
