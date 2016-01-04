@@ -33,10 +33,6 @@ func main() {
 	app.Run(os.Args)
 }
 
-func printError(err error) {
-	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
-}
-
 func newListCommand() cli.Command {
 	command := cli.Command{
 		Name:      "list",
@@ -112,4 +108,8 @@ func newSendCommand() cli.Command {
 	}
 
 	return command
+}
+
+func printError(err error) {
+	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
 }
