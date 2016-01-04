@@ -1,4 +1,4 @@
-package commands
+package application
 
 import (
 	"errors"
@@ -7,78 +7,39 @@ import (
 	"path"
 	"regexp"
 
-	"github.com/codegangsta/cli"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
+	"github.com/mitsuse/pushbullet-go/responses"
 )
 
-/*
-Create "send" sub-command.
-This sub-command sends a "push" to devices such as "note", "link" or "file".
-*/
-func NewSendCommand() cli.Command {
-	command := cli.Command{
-		Name:      "send",
-		ShortName: "s",
-		Usage:     "Send a message or a file",
-		Action:    actionSend,
-
-		Flags: []cli.Flag{
-			cli.StringFlag{
-				Name:  "device,d",
-				Value: "",
-				Usage: "The name of target device",
-			},
-
-			cli.StringFlag{
-				Name:  "title,t",
-				Value: "",
-				Usage: "The title of the message or file to be sent",
-			},
-
-			cli.StringFlag{
-				Name:  "message,m",
-				Value: "",
-				Usage: "The message to be sent",
-			},
-
-			cli.StringFlag{
-				Name:  "location,l",
-				Value: "",
-				Usage: "The path of file or link to be sent",
-			},
-		},
-	}
-
-	return command
-}
-
-func actionSend(ctx *cli.Context) {
-	token := os.Getenv("ARCUS_ACCESS_TOKEN")
+// `ListDevices` obtains the list of devices connected to the account authorized with the given `token`.
+func ListDevices(token string) (devices []*responses.Device, err error) {
 	if len(token) == 0 {
 		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
-		printError(errors.New(message))
-		return
+		return nil, errors.New(message)
 	}
 
-	pb := pushbullet.New(token)
+	client := pushbullet.New(token)
 
-	title := ctx.String("title")
-	message := ctx.String("message")
-	location := ctx.String("location")
-	device := ctx.String("device")
+	return client.GetDevices()
+}
 
-	deviceId, err := getDeviceId(pb, device)
+// `Send` pushes the  given data to devices connected to the account authorized with the give `token`.
+func Send(token, title, message, location, device string) error {
+	if len(token) == 0 {
+		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
+		return errors.New(message)
+	}
+
+	client := pushbullet.New(token)
+
+	deviceId, err := getDeviceId(client, device)
 	if err != nil {
-		printError(err)
-		return
+		return err
 	}
 
-	if err := send(pb, deviceId, title, message, location); err != nil {
-		// TODO: Print an error message easy to understand.
-		printError(err)
-		return
-	}
+	// TODO: Print an error message easy to understand.
+	return send(client, deviceId, title, message, location)
 }
 
 func send(pb *pushbullet.Pushbullet, deviceId, title, message, location string) error {

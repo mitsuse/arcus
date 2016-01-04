@@ -1,30 +1,121 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/mitsuse/arcus/commands"
+	"github.com/mitsuse/arcus/application"
+)
+
+const (
+	name        = "arcus"
+	version     = "0.1.3"
+	description = "A command-line tool to send a message to devices via Pushbullet."
+	author      = "Tomoya Kose (mitsuse)"
+	email       = "tomoya@mitsuse.jp"
+
+	variableToken = "ARCUS_ACCESS_TOKEN"
 )
 
 func main() {
-	cmd := initCmd()
-	cmd.Run(os.Args)
-}
+	app := cli.NewApp()
 
-func initCmd() *cli.App {
-	cmd := cli.NewApp()
+	app.Name = name
+	app.Version = version
+	app.Usage = description
+	app.Author = author
+	app.Email = email
 
-	cmd.Name = commands.NAME
-	cmd.Version = commands.VERSION
-	cmd.Usage = commands.DESC
-	cmd.Author = commands.AUTHOR
-	cmd.Email = commands.AUTHOR_EMAIL
-
-	cmd.Commands = []cli.Command{
-		commands.NewSendCommand(),
-		commands.NewListCommand(),
+	app.Commands = []cli.Command{
+		newSendCommand(),
+		newListCommand(),
 	}
 
-	return cmd
+	app.Run(os.Args)
+}
+
+func newListCommand() cli.Command {
+	command := cli.Command{
+		Name:      "list",
+		ShortName: "l",
+		Usage:     "List devices that can be pushed to",
+
+		Action: func(c *cli.Context) {
+			token := getToken()
+
+			devices, err := application.ListDevices(token)
+			if err != nil {
+				printError(err)
+				return
+			}
+
+			for _, d := range devices {
+				if !d.Pushable {
+					continue
+				}
+
+				fmt.Println(d.Nickname)
+			}
+		},
+	}
+
+	return command
+}
+
+func newSendCommand() cli.Command {
+	command := cli.Command{
+		Name:      "send",
+		ShortName: "s",
+		Usage:     "Send a message or a file",
+
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:  "device,d",
+				Value: "",
+				Usage: "The name of target device",
+			},
+
+			cli.StringFlag{
+				Name:  "title,t",
+				Value: "",
+				Usage: "The title of the message or file to be sent",
+			},
+
+			cli.StringFlag{
+				Name:  "message,m",
+				Value: "",
+				Usage: "The message to be sent",
+			},
+
+			cli.StringFlag{
+				Name:  "location,l",
+				Value: "",
+				Usage: "The path of file or link to be sent",
+			},
+		},
+
+		Action: func(c *cli.Context) {
+			token := getToken()
+			title := c.String("title")
+			message := c.String("message")
+			location := c.String("location")
+			device := c.String("device")
+
+			if err := application.Send(token, title, message, location, device); err != nil {
+				printError(err)
+				return
+			}
+		},
+	}
+
+	return command
+}
+
+func getToken() string {
+	return os.Getenv(variableToken)
+}
+
+func printError(err error) {
+	fmt.Fprintf(os.Stderr, "%s: %s\n", name, err)
 }
