@@ -45,9 +45,9 @@ The registered devices can be listed with `arcus list`.
 
 ## Installation
 
-### OSX
+### OS X
 
-If you are an OSX user, you can install `arcus` with [Homebrew](http://brew.sh/):
+If you are an OS X user, you can install `arcus` with [Homebrew](http://brew.sh/):
 
 ```bash
 brew tap mitsuse/arcus
