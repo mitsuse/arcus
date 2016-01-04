@@ -51,11 +51,7 @@ func newListCommand() cli.Command {
 			}
 
 			for _, d := range devices {
-				if !d.Pushable {
-					continue
-				}
-
-				fmt.Println(d.Nickname)
+				fmt.Println(d.Name())
 			}
 		},
 	}

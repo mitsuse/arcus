@@ -7,36 +7,42 @@ import (
 	"path"
 	"regexp"
 
+	"github.com/mitsuse/arcus/domain/device"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
-	"github.com/mitsuse/pushbullet-go/responses"
 )
 
 // `ListDevices` obtains the list of devices connected to the account authorized with the given `token`.
-func ListDevices(token string) (devices []*responses.Device, err error) {
+func ListDevices(token string) (devices []*device.Type, err error) {
 	if len(token) == 0 {
 		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
 		return nil, errors.New(message)
 	}
 
-	client := pushbullet.New(token)
-
-	return client.GetDevices()
+	return device.ListPushable(token)
 }
 
 // `Send` pushes the  given data to devices connected to the account authorized with the give `token`.
-func Send(token, title, message, location, device string) error {
+func Send(token, title, message, location, deviceName string) error {
 	if len(token) == 0 {
 		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
 		return errors.New(message)
 	}
 
-	client := pushbullet.New(token)
+	var deviceId string
+	if len(deviceName) == 0 {
+		deviceId = ""
+	} else {
+		device, err := device.GetPushableByName(token, deviceName)
+		if err != nil {
+			return err
+		}
 
-	deviceId, err := getDeviceId(client, device)
-	if err != nil {
-		return err
+		deviceId = device.Id()
 	}
+
+	// TODO: Remove this.
+	client := pushbullet.New(token)
 
 	// TODO: Print an error message easy to understand.
 	return send(client, deviceId, title, message, location)
