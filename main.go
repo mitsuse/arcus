@@ -8,19 +8,31 @@ import (
 	"github.com/mitsuse/arcus/application"
 )
 
+const (
+	NAME         = `arcus`
+	VERSION      = "0.1.3"
+	DESCRIPTION  = "A command-line tool to send a message to devices via Pushbullet."
+	AUTHOR       = "Tomoya Kose (mitsuse)"
+	AUTHOR_EMAIL = "tomoya@mitsuse.jp"
+)
+
 func main() {
 	app := createApp()
 	app.Run(os.Args)
 }
 
+func printError(err error) {
+	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
+}
+
 func createApp() *cli.App {
 	app := cli.NewApp()
 
-	app.Name = application.NAME
-	app.Version = application.VERSION
-	app.Usage = application.DESCRIPTION
-	app.Author = application.AUTHOR
-	app.Email = application.AUTHOR_EMAIL
+	app.Name = NAME
+	app.Version = VERSION
+	app.Usage = DESCRIPTION
+	app.Author = AUTHOR
+	app.Email = AUTHOR_EMAIL
 
 	app.Commands = []cli.Command{
 		newSendCommand(),
@@ -41,7 +53,7 @@ func newListCommand() cli.Command {
 
 			devices, err := application.ListDevices(token)
 			if err != nil {
-				application.ExitWith(err)
+				printError(err)
 				return
 			}
 
@@ -98,7 +110,7 @@ func newSendCommand() cli.Command {
 			device := c.String("device")
 
 			if err := application.Send(token, title, message, location, device); err != nil {
-				application.ExitWith(err)
+				printError(err)
 				return
 			}
 		},
