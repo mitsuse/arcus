@@ -50,8 +50,8 @@ The registered devices can be listed with `arcus list`.
 If you are an OSX user, you can install `arcus` with [Homebrew](http://brew.sh/):
 
 ```bash
-brew tap mitsuse/bullet
-brew install bullet-cmd
+brew tap mitsuse/arcus
+brew install arcus
 ```
 
 ### Others
