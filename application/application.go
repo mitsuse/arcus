@@ -1,4 +1,4 @@
-// Package `application` provides the information of `arcus` application.
+// Package `application` provides the information of `arcus` and services.
 package application
 
 const (

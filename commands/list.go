@@ -1,13 +1,11 @@
 package commands
 
 import (
-	"errors"
 	"fmt"
 	"os"
 
 	"github.com/codegangsta/cli"
 	"github.com/mitsuse/arcus/application"
-	"github.com/mitsuse/pushbullet-go"
 )
 
 /*
@@ -27,25 +25,18 @@ func NewListCommand() cli.Command {
 
 func actionList(ctx *cli.Context) {
 	token := os.Getenv("ARCUS_ACCESS_TOKEN")
-	if len(token) == 0 {
-		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
-		application.ExitWith(errors.New(message))
-		return
-	}
 
-	pb := pushbullet.New(token)
-
-	res, err := pb.GetDevices()
+	devices, err := application.ListDevices(token)
 	if err != nil {
 		application.ExitWith(err)
 		return
 	}
 
-	for _, device := range res {
-		if !device.Pushable {
+	for _, d := range devices {
+		if !d.Pushable {
 			continue
 		}
 
-		fmt.Println(device.Nickname)
+		fmt.Println(d.Nickname)
 	}
 }
