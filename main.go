@@ -17,15 +17,6 @@ const (
 )
 
 func main() {
-	app := createApp()
-	app.Run(os.Args)
-}
-
-func printError(err error) {
-	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
-}
-
-func createApp() *cli.App {
 	app := cli.NewApp()
 
 	app.Name = NAME
@@ -39,7 +30,11 @@ func createApp() *cli.App {
 		newListCommand(),
 	}
 
-	return app
+	app.Run(os.Args)
+}
+
+func printError(err error) {
+	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
 }
 
 func newListCommand() cli.Command {
