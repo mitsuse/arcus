@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	NAME         = "arcus"
-	VERSION      = "0.1.3"
-	DESCRIPTION  = "A command-line tool to send a message to devices via Pushbullet."
-	AUTHOR       = "Tomoya Kose (mitsuse)"
-	AUTHOR_EMAIL = "tomoya@mitsuse.jp"
+	name        = "arcus"
+	version     = "0.1.3"
+	description = "A command-line tool to send a message to devices via Pushbullet."
+	author      = "Tomoya Kose (mitsuse)"
+	email       = "tomoya@mitsuse.jp"
 
 	variableToken = "ARCUS_ACCESS_TOKEN"
 )
@@ -21,11 +21,11 @@ const (
 func main() {
 	app := cli.NewApp()
 
-	app.Name = NAME
-	app.Version = VERSION
-	app.Usage = DESCRIPTION
-	app.Author = AUTHOR
-	app.Email = AUTHOR_EMAIL
+	app.Name = name
+	app.Version = version
+	app.Usage = description
+	app.Author = author
+	app.Email = email
 
 	app.Commands = []cli.Command{
 		newSendCommand(),
@@ -117,5 +117,5 @@ func getToken() string {
 }
 
 func printError(err error) {
-	fmt.Fprintf(os.Stderr, "%s: %s\n", NAME, err)
+	fmt.Fprintf(os.Stderr, "%s: %s\n", name, err)
 }
