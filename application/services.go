@@ -106,25 +106,6 @@ func upload(pb *pushbullet.Pushbullet, deviceId, title, message, location string
 	return nil
 }
 
-func getDeviceId(pb *pushbullet.Pushbullet, name string) (string, error) {
-	if len(name) > 0 {
-		res, err := pb.GetDevices()
-		if err != nil {
-			return "", err
-		}
-
-		for _, device := range res {
-			if device.Nickname == name {
-				return device.Iden, nil
-			}
-		}
-	} else {
-		return "", nil
-	}
-
-	return "", errors.New("No such device.")
-}
-
 func isLink(location string) bool {
 	return regexp.MustCompile(`^https?://`).MatchString(location)
 }
