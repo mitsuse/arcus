@@ -4,27 +4,28 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/arcus/application"
 	"github.com/mitsuse/arcus/commands"
 )
 
 func main() {
-	cmd := initCmd()
-	cmd.Run(os.Args)
+	app := createApp()
+	app.Run(os.Args)
 }
 
-func initCmd() *cli.App {
-	cmd := cli.NewApp()
+func createApp() *cli.App {
+	app := cli.NewApp()
 
-	cmd.Name = commands.NAME
-	cmd.Version = commands.VERSION
-	cmd.Usage = commands.DESC
-	cmd.Author = commands.AUTHOR
-	cmd.Email = commands.AUTHOR_EMAIL
+	app.Name = application.NAME
+	app.Version = application.VERSION
+	app.Usage = application.DESCRIPTION
+	app.Author = application.AUTHOR
+	app.Email = application.AUTHOR_EMAIL
 
-	cmd.Commands = []cli.Command{
+	app.Commands = []cli.Command{
 		commands.NewSendCommand(),
 		commands.NewListCommand(),
 	}
 
-	return cmd
+	return app
 }

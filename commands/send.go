@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/arcus/application"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
 )
@@ -57,7 +58,7 @@ func actionSend(ctx *cli.Context) {
 	token := os.Getenv("ARCUS_ACCESS_TOKEN")
 	if len(token) == 0 {
 		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
-		printError(errors.New(message))
+		application.ExitWith(errors.New(message))
 		return
 	}
 
@@ -70,13 +71,13 @@ func actionSend(ctx *cli.Context) {
 
 	deviceId, err := getDeviceId(pb, device)
 	if err != nil {
-		printError(err)
+		application.ExitWith(err)
 		return
 	}
 
 	if err := send(pb, deviceId, title, message, location); err != nil {
 		// TODO: Print an error message easy to understand.
-		printError(err)
+		application.ExitWith(err)
 		return
 	}
 }

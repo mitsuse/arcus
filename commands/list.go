@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/mitsuse/arcus/application"
 	"github.com/mitsuse/pushbullet-go"
 )
 
@@ -28,7 +29,7 @@ func actionList(ctx *cli.Context) {
 	token := os.Getenv("ARCUS_ACCESS_TOKEN")
 	if len(token) == 0 {
 		message := "The environment variable \"ARCUS_ACCESS_TOKEN\" should not be empty."
-		printError(errors.New(message))
+		application.ExitWith(errors.New(message))
 		return
 	}
 
@@ -36,7 +37,7 @@ func actionList(ctx *cli.Context) {
 
 	res, err := pb.GetDevices()
 	if err != nil {
-		printError(err)
+		application.ExitWith(err)
 		return
 	}
 
