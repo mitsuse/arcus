@@ -1,6 +1,6 @@
-package file
+package resource
 
-// `Remote` represents the information of an uploaded file.
+// `Remote` represents the information of an uploaded resource.
 type Remote struct {
 	name string
 	t    string

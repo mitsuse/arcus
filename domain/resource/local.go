@@ -1,18 +1,18 @@
-package file
+package resource
 
 import (
 	"mime"
 	"path"
 )
 
-// `Local` represents the information of a file stored in local file system.
+// `Local` represents the information of a resource stored in local file system.
 type Local struct {
 	name string
 	t    string
 	path string
 }
 
-// `Read` returns the information of local file.
+// `Read` returns the information of local resource.
 func Read(p string) (*Local, error) {
 	base := path.Base(p)
 	extension := path.Ext(base)

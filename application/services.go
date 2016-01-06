@@ -6,7 +6,7 @@ import (
 	"regexp"
 
 	"github.com/mitsuse/arcus/domain/device"
-	"github.com/mitsuse/arcus/domain/file"
+	"github.com/mitsuse/arcus/domain/resource"
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
 )
@@ -76,7 +76,7 @@ func upload(token, deviceId, title, message, location string) error {
 	}
 	defer f.Close()
 
-	u, err := file.Upload(token, f)
+	u, err := resource.Upload(token, f)
 	if err != nil {
 		return err
 	}

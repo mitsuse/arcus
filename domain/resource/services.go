@@ -1,4 +1,4 @@
-package file
+package resource
 
 import (
 	"mime"
@@ -8,7 +8,7 @@ import (
 	"github.com/mitsuse/pushbullet-go"
 )
 
-// `Upload` uploads the given file and return the information of uploaded file such as the URL.
+// `Upload` uploads the given file and return the information of uploaded resource such as the URL.
 func Upload(token string, f *os.File) (*Remote, error) {
 	client := pushbullet.New(token)
 
