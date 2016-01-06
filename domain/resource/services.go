@@ -1,21 +1,22 @@
 package resource
 
 import (
-	"mime"
 	"os"
-	"path"
 
 	"github.com/mitsuse/pushbullet-go"
 )
 
-// `Upload` uploads the given file and return the information of uploaded resource such as the URL.
-func Upload(token string, f *os.File) (*Remote, error) {
+// `Upload` uploads the given local resource and return the information of uploaded remote resource.
+func Upload(token string, l *Local) (*Remote, error) {
 	client := pushbullet.New(token)
 
-	name := f.Name()
-	mimeType := mime.TypeByExtension(path.Ext(name))
+	f, err := os.Open(l.Path())
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
 
-	response, err := client.PostUploadRequest(name, mimeType)
+	response, err := client.PostUploadRequest(l.Name(), l.Type())
 	if err != nil {
 		return nil, err
 	}
@@ -24,11 +25,11 @@ func Upload(token string, f *os.File) (*Remote, error) {
 		return nil, err
 	}
 
-	t := &Remote{
+	r := &Remote{
 		name: response.FileName,
 		t:    response.FileType,
 		url:  response.FileUrl,
 	}
 
-	return t, nil
+	return r, nil
 }

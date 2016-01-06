@@ -2,7 +2,6 @@ package application
 
 import (
 	"errors"
-	"os"
 	"regexp"
 
 	"github.com/mitsuse/arcus/domain/device"
@@ -70,13 +69,12 @@ func send(token, deviceId, title, message, location string) error {
 }
 
 func upload(token, deviceId, title, message, location string) error {
-	f, err := os.Open(location)
+	l, err := resource.Read(location)
 	if err != nil {
 		return err
 	}
-	defer f.Close()
 
-	u, err := resource.Upload(token, f)
+	r, err := resource.Upload(token, l)
 	if err != nil {
 		return err
 	}
@@ -84,9 +82,9 @@ func upload(token, deviceId, title, message, location string) error {
 	push := requests.NewFile()
 	push.Title = title
 	push.Body = message
-	push.FileName = u.Name()
-	push.FileType = u.Type()
-	push.FileUrl = u.Url()
+	push.FileName = r.Name()
+	push.FileType = r.Type()
+	push.FileUrl = r.Url()
 	push.DeviceIden = deviceId
 
 	if _, err := pushbullet.New(token).PostPushesFile(push); err != nil {
