@@ -9,7 +9,7 @@ import (
 )
 
 // `Upload` uploads the given file and return the information of uploaded file such as the URL.
-func Upload(token string, f *os.File) (*Type, error) {
+func Upload(token string, f *os.File) (*Remote, error) {
 	client := pushbullet.New(token)
 
 	name := f.Name()
@@ -24,7 +24,7 @@ func Upload(token string, f *os.File) (*Type, error) {
 		return nil, err
 	}
 
-	t := &Type{
+	t := &Remote{
 		name: response.FileName,
 		t:    response.FileType,
 		url:  response.FileUrl,
