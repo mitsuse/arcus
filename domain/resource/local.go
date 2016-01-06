@@ -5,14 +5,14 @@ import (
 	"path"
 )
 
-// `Local` represents the information of a resource stored in local file system.
+// `Local` represents the information of a resource stored at local.
 type Local struct {
 	name string
 	t    string
 	path string
 }
 
-// `Read` returns the information of local resource.
+// `Read` returns the information of local resource located at the given path `p`.
 func Read(p string) (*Local, error) {
 	base := path.Base(p)
 	extension := path.Ext(base)
